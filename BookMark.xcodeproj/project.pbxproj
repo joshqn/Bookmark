@@ -8,20 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		918D38491CD93AEE00C32FB3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D38481CD93AEE00C32FB3 /* AppDelegate.swift */; };
-		918D384B1CD93AEE00C32FB3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D384A1CD93AEE00C32FB3 /* ViewController.swift */; };
 		918D384E1CD93AEE00C32FB3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 918D384C1CD93AEE00C32FB3 /* Main.storyboard */; };
 		918D38501CD93AEE00C32FB3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 918D384F1CD93AEE00C32FB3 /* Assets.xcassets */; };
 		918D38531CD93AEE00C32FB3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 918D38511CD93AEE00C32FB3 /* LaunchScreen.storyboard */; };
+		918D385B1CD93B2300C32FB3 /* CDHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D385A1CD93B2300C32FB3 /* CDHelper.swift */; };
+		918D385D1CD93B5B00C32FB3 /* BookMarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D385C1CD93B5B00C32FB3 /* BookMarksViewController.swift */; };
+		918D385F1CD93D7E00C32FB3 /* UIViewController+FillWithView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D385E1CD93D7E00C32FB3 /* UIViewController+FillWithView.swift */; };
+		918D38621CD93E3500C32FB3 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 918D38601CD93E3500C32FB3 /* Model.xcdatamodeld */; };
+		918D38641CD93F1200C32FB3 /* NewBookMarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D38631CD93F1200C32FB3 /* NewBookMarkViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		918D38451CD93AEE00C32FB3 /* BookMark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookMark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		918D38481CD93AEE00C32FB3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		918D384A1CD93AEE00C32FB3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		918D384D1CD93AEE00C32FB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		918D384F1CD93AEE00C32FB3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		918D38521CD93AEE00C32FB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		918D38541CD93AEE00C32FB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		918D385A1CD93B2300C32FB3 /* CDHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDHelper.swift; sourceTree = "<group>"; };
+		918D385C1CD93B5B00C32FB3 /* BookMarksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookMarksViewController.swift; sourceTree = "<group>"; };
+		918D385E1CD93D7E00C32FB3 /* UIViewController+FillWithView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+FillWithView.swift"; sourceTree = "<group>"; };
+		918D38611CD93E3500C32FB3 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		918D38631CD93F1200C32FB3 /* NewBookMarkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBookMarkViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +63,11 @@
 			isa = PBXGroup;
 			children = (
 				918D38481CD93AEE00C32FB3 /* AppDelegate.swift */,
-				918D384A1CD93AEE00C32FB3 /* ViewController.swift */,
+				918D385C1CD93B5B00C32FB3 /* BookMarksViewController.swift */,
+				918D38631CD93F1200C32FB3 /* NewBookMarkViewController.swift */,
+				918D385A1CD93B2300C32FB3 /* CDHelper.swift */,
+				918D385E1CD93D7E00C32FB3 /* UIViewController+FillWithView.swift */,
+				918D38601CD93E3500C32FB3 /* Model.xcdatamodeld */,
 				918D384C1CD93AEE00C32FB3 /* Main.storyboard */,
 				918D384F1CD93AEE00C32FB3 /* Assets.xcassets */,
 				918D38511CD93AEE00C32FB3 /* LaunchScreen.storyboard */,
@@ -135,8 +147,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				918D384B1CD93AEE00C32FB3 /* ViewController.swift in Sources */,
+				918D385F1CD93D7E00C32FB3 /* UIViewController+FillWithView.swift in Sources */,
 				918D38491CD93AEE00C32FB3 /* AppDelegate.swift in Sources */,
+				918D38621CD93E3500C32FB3 /* Model.xcdatamodeld in Sources */,
+				918D38641CD93F1200C32FB3 /* NewBookMarkViewController.swift in Sources */,
+				918D385B1CD93B2300C32FB3 /* CDHelper.swift in Sources */,
+				918D385D1CD93B5B00C32FB3 /* BookMarksViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,6 +306,19 @@
 			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		918D38601CD93E3500C32FB3 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				918D38611CD93E3500C32FB3 /* Model.xcdatamodel */,
+			);
+			currentVersion = 918D38611CD93E3500C32FB3 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 918D383D1CD93AEE00C32FB3 /* Project object */;
 }
