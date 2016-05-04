@@ -1,5 +1,5 @@
 //
-//  NewBookMarkViewController.swift
+//  EditBookMarkViewController.swift
 //  BookMark
 //
 //  Created by Joshua Kuehn on 5/3/16.
@@ -9,14 +9,16 @@
 import UIKit
 import CoreData
 
-protocol NewBookMarkCreationDelegate:class {
-  func newBookCreated(view: NewBookMarkViewController)
+protocol EditBookMarkDelegate: class {
+  func editedBook(view: EditBookMarkViewController)
 }
 
-class NewBookMarkViewController: UIViewController {
+class EditBookMarkViewController: UIViewController {
 
   var context: NSManagedObjectContext?
-  weak var delegate: NewBookMarkCreationDelegate?
+  weak var delegate: EditBookMarkDelegate?
+  
+  var bookMark: BookMark?
   
   private let bookNameTextField = UITextField()
   private let pageTextField = UITextField()
@@ -26,35 +28,40 @@ class NewBookMarkViewController: UIViewController {
   
   private let bookBottomBorder = UIView()
   private let pageBottomBorder = UIView()
-
-
   
-    override func viewDidLoad() {
-        super.viewDidLoad()
-      
-      view.backgroundColor = UIColor.whiteColor()
-      title = "New Book Mark"
-      
-      navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: #selector(cancel))
-      navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .Done, target: self, action: #selector(done))
-
-      automaticallyAdjustsScrollViewInsets = false
-      
-      let tapGesture = UITapGestureRecognizer()
-      tapGesture.addTarget(self, action: #selector(viewTapped))
-      view.addGestureRecognizer(tapGesture)
-      
-      createUI()
-      createAndAddConstraints()
-      bookNameTextField.becomeFirstResponder()
-      
-
+  
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    view.backgroundColor = UIColor.whiteColor()
+    title = "Edit Book Mark"
+    
+    navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: #selector(cancel))
+    navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .Done, target: self, action: #selector(done))
+    
+    automaticallyAdjustsScrollViewInsets = false
+    
+    let tapGesture = UITapGestureRecognizer()
+    tapGesture.addTarget(self, action: #selector(viewTapped))
+    view.addGestureRecognizer(tapGesture)
+    
+    createUI()
+    createAndAddConstraints()
+    pageTextField.becomeFirstResponder()
+    
+    if let bookMark = bookMark {
+      bookNameTextField.text = bookMark.name
+      pageTextField.text = "\(bookMark.page!)"
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    
+    
+  }
+  
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+  }
   
   //MARK: Helpers
   
@@ -71,7 +78,7 @@ class NewBookMarkViewController: UIViewController {
     bookNameTextField.translatesAutoresizingMaskIntoConstraints = false
     bookNameTextField.delegate = self
     view.addSubview(bookNameTextField)
-    updateDoneButton(forCharCount: 0)
+    updateDoneButton(forCharCount: 1)
     
     pageTextField.placeholder = "Current Page"
     pageTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -92,32 +99,32 @@ class NewBookMarkViewController: UIViewController {
   
   func createAndAddConstraints() {
     let constraints: [NSLayoutConstraint] = [
-    bookNameLabel.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor,constant: 20),
-    bookNameLabel.leadingAnchor.constraintEqualToAnchor(view.layoutMarginsGuide.leadingAnchor),
-    
-    pageLabel.topAnchor.constraintEqualToAnchor(bookNameLabel.bottomAnchor, constant: 15),
-    pageLabel.leadingAnchor.constraintEqualToAnchor(view.layoutMarginsGuide.leadingAnchor),
-    
-    bookNameTextField.centerYAnchor.constraintEqualToAnchor(bookNameLabel.centerYAnchor),
-    bookNameTextField.leadingAnchor.constraintEqualToAnchor(bookNameLabel.trailingAnchor, constant: 20),
-    bookNameTextField.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor, constant: -20),
-    bookBottomBorder.widthAnchor.constraintEqualToAnchor(bookNameTextField.widthAnchor),
-    bookBottomBorder.bottomAnchor.constraintEqualToAnchor(bookNameTextField.bottomAnchor),
-    bookBottomBorder.leadingAnchor.constraintEqualToAnchor(bookNameTextField.leadingAnchor),
-    bookBottomBorder.heightAnchor.constraintEqualToConstant(1),
-    
-    pageTextField.centerYAnchor.constraintEqualToAnchor(pageLabel.centerYAnchor),
-    pageTextField.leadingAnchor.constraintEqualToAnchor(pageLabel.trailingAnchor, constant: 20),
-    pageTextField.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor, constant: -20),
-    pageBottomBorder.widthAnchor.constraintEqualToAnchor(pageTextField.widthAnchor),
-    pageBottomBorder.bottomAnchor.constraintEqualToAnchor(pageTextField.bottomAnchor),
-    pageBottomBorder.leadingAnchor.constraintEqualToAnchor(pageTextField.leadingAnchor),
-    pageBottomBorder.heightAnchor.constraintEqualToConstant(1),
-    
-    ]
+      bookNameLabel.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor,constant: 20),
+      bookNameLabel.leadingAnchor.constraintEqualToAnchor(view.layoutMarginsGuide.leadingAnchor),
+      
+      pageLabel.topAnchor.constraintEqualToAnchor(bookNameLabel.bottomAnchor, constant: 15),
+      pageLabel.leadingAnchor.constraintEqualToAnchor(view.layoutMarginsGuide.leadingAnchor),
+      
+      bookNameTextField.centerYAnchor.constraintEqualToAnchor(bookNameLabel.centerYAnchor),
+      bookNameTextField.leadingAnchor.constraintEqualToAnchor(bookNameLabel.trailingAnchor, constant: 20),
+      bookNameTextField.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor, constant: -20),
+      bookBottomBorder.widthAnchor.constraintEqualToAnchor(bookNameTextField.widthAnchor),
+      bookBottomBorder.bottomAnchor.constraintEqualToAnchor(bookNameTextField.bottomAnchor),
+      bookBottomBorder.leadingAnchor.constraintEqualToAnchor(bookNameTextField.leadingAnchor),
+      bookBottomBorder.heightAnchor.constraintEqualToConstant(1),
+      
+      pageTextField.centerYAnchor.constraintEqualToAnchor(pageLabel.centerYAnchor),
+      pageTextField.leadingAnchor.constraintEqualToAnchor(pageLabel.trailingAnchor, constant: 20),
+      pageTextField.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor, constant: -20),
+      pageBottomBorder.widthAnchor.constraintEqualToAnchor(pageTextField.widthAnchor),
+      pageBottomBorder.bottomAnchor.constraintEqualToAnchor(pageTextField.bottomAnchor),
+      pageBottomBorder.leadingAnchor.constraintEqualToAnchor(pageTextField.leadingAnchor),
+      pageBottomBorder.heightAnchor.constraintEqualToConstant(1),
+      
+      ]
     
     NSLayoutConstraint.activateConstraints(constraints)
-
+    
   }
   
   //Updates the Done buttons appear according to if the length of characters in the book name text field is greater than 0
@@ -142,25 +149,23 @@ class NewBookMarkViewController: UIViewController {
   }
   
   func done() {
-    guard let context = context, let bookMark = NSEntityDescription.insertNewObjectForEntityForName("BookMark", inManagedObjectContext: context) as? BookMark else { return }
+    guard let context = context, let bookMark = bookMark else { return }
     bookMark.name = bookNameTextField.text!
     bookMark.page = Int(pageTextField.text ?? "0")
     
-    print(bookNameTextField.text)
     do {
       try context.save()
     } catch {
       print("Error saving")
     }
     
-    delegate?.newBookCreated(self)
+    delegate?.editedBook(self)
     dismissViewControllerAnimated(true, completion: nil)
     
   }
-
 }
 
-extension NewBookMarkViewController: UITextFieldDelegate {
+extension EditBookMarkViewController: UITextFieldDelegate {
   func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool  {
     let currentCharCount = textField.text?.characters.count ?? 0
     let newLength = currentCharCount + string.characters.count - range.length
@@ -170,10 +175,6 @@ extension NewBookMarkViewController: UITextFieldDelegate {
     return true
   }
 }
-
-
-
-
 
 
 
