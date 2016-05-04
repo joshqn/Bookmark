@@ -64,10 +64,16 @@ class BookMarksViewController: UIViewController, TableViewFetchedResultsDisplaye
   
   func configureCell(cell:UITableViewCell, atIndexPath:NSIndexPath) {
     let cell = cell as! BookMarksTableViewCell
+    let dateFormatter = NSDateFormatter()
+    dateFormatter.dateStyle = .MediumStyle
+    dateFormatter.timeStyle = .ShortStyle
     guard let bookMark = fetchedResultsController?.objectAtIndexPath(atIndexPath) as? BookMark else { return }
     
     cell.nameLabel.text = bookMark.name ?? "Nil"
     cell.dateLabel.text = String(bookMark.page ?? 0)
+    cell.messageLabel.text = dateFormatter.stringFromDate(bookMark.lastBookMarkDate ?? NSDate())
+    
+    
   }
 
 }
@@ -88,10 +94,10 @@ extension BookMarksViewController: UITableViewDelegate {
     return true
   }
   
-  func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-    if editingStyle == .Delete {
+  func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+    let delete = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Delete" , handler: { (action:UITableViewRowAction!, indexPath:NSIndexPath!) -> Void in
       
-      guard let bookMark = fetchedResultsController?.objectAtIndexPath(indexPath) as? BookMark, let context = context else { return }
+      guard let bookMark = self.fetchedResultsController?.objectAtIndexPath(indexPath) as? BookMark, let context = self.context else { return }
       context.deleteObject(bookMark)
       do {
         try context.save()
@@ -99,11 +105,23 @@ extension BookMarksViewController: UITableViewDelegate {
         print("Could not delete BookMark")
       }
       
-    }
+    })
+    delete.backgroundColor = UIColor.redColor()
+    
+    let more = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Archive" , handler: { (action:UITableViewRowAction!, indexPath:NSIndexPath!) -> Void in
+      //Do something
+    })
+    more.backgroundColor = UIColor(red: 255/255, green: 207/255, blue: 51/255, alpha: 1.0)
+    
+    return [delete, more]
   }
 }
 
 extension BookMarksViewController: UITableViewDataSource {
+  
+  func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    return 66
+  }
   
   func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     return 1

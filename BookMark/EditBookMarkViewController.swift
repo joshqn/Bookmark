@@ -52,7 +52,7 @@ class EditBookMarkViewController: UIViewController {
     
     if let bookMark = bookMark {
       bookNameTextField.text = bookMark.name
-      pageTextField.text = "\(bookMark.page!)"
+      pageTextField.text = "\(bookMark.page ?? 0)"
     }
     
     
@@ -152,6 +152,7 @@ class EditBookMarkViewController: UIViewController {
     guard let context = context, let bookMark = bookMark else { return }
     bookMark.name = bookNameTextField.text!
     bookMark.page = Int(pageTextField.text ?? "0")
+    bookMark.lastBookMarkDate = NSDate()
     
     do {
       try context.save()

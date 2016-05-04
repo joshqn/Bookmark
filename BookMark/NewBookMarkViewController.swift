@@ -145,6 +145,7 @@ class NewBookMarkViewController: UIViewController {
     guard let context = context, let bookMark = NSEntityDescription.insertNewObjectForEntityForName("BookMark", inManagedObjectContext: context) as? BookMark else { return }
     bookMark.name = bookNameTextField.text!
     bookMark.page = Int(pageTextField.text ?? "0")
+    bookMark.lastBookMarkDate = NSDate()
     
     print(bookNameTextField.text)
     do {

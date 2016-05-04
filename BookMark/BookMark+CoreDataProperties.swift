@@ -16,5 +16,6 @@ extension BookMark {
 
     @NSManaged var page: NSNumber?
     @NSManaged var name: String?
+    @NSManaged var lastBookMarkDate: NSDate?
 
 }

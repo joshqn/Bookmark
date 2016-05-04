@@ -13,6 +13,7 @@ class BookMarksTableViewCell: UITableViewCell {
   let nameLabel = UILabel()
   let messageLabel = UILabel()
   let dateLabel = UILabel()
+  let bookArtwork = UIImageView()
   
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -20,8 +21,9 @@ class BookMarksTableViewCell: UITableViewCell {
     nameLabel.font = UIFont.systemFontOfSize(18, weight: UIFontWeightBold)
     messageLabel.textColor = .grayColor()
     dateLabel.textColor = .grayColor()
+    bookArtwork.backgroundColor = UIColor.grayColor()
     
-    let labels = [nameLabel,messageLabel,dateLabel]
+    let labels = [bookArtwork,nameLabel,messageLabel,dateLabel]
     
     for label in labels {
       label.translatesAutoresizingMaskIntoConstraints = false
@@ -29,12 +31,18 @@ class BookMarksTableViewCell: UITableViewCell {
     }
     
     let constraints: [NSLayoutConstraint] = [
+      
+      bookArtwork.topAnchor.constraintEqualToAnchor(contentView.layoutMarginsGuide.topAnchor),
+      bookArtwork.leadingAnchor.constraintEqualToAnchor(contentView.layoutMarginsGuide.leadingAnchor),
+      bookArtwork.bottomAnchor.constraintEqualToAnchor(contentView.layoutMarginsGuide.bottomAnchor),
+      bookArtwork.widthAnchor.constraintEqualToConstant(40),
       nameLabel.topAnchor.constraintEqualToAnchor(contentView.layoutMarginsGuide.topAnchor),
-      nameLabel.leadingAnchor.constraintEqualToAnchor(contentView.layoutMarginsGuide.leadingAnchor),
+      nameLabel.leadingAnchor.constraintEqualToAnchor(bookArtwork.trailingAnchor,constant: 10),
       messageLabel.bottomAnchor.constraintEqualToAnchor(contentView.layoutMarginsGuide.bottomAnchor),
       messageLabel.leadingAnchor.constraintEqualToAnchor(nameLabel.leadingAnchor),
       dateLabel.trailingAnchor.constraintEqualToAnchor(contentView.layoutMarginsGuide.trailingAnchor),
       dateLabel.firstBaselineAnchor.constraintEqualToAnchor(nameLabel.firstBaselineAnchor)
+      
     ]
     
     NSLayoutConstraint.activateConstraints(constraints)
