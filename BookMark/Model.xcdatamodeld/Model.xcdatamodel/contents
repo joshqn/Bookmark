@@ -4,8 +4,9 @@
         <attribute name="lastBookMarkDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="page" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="photoData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="BookMark" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="BookMark" positionX="-63" positionY="-18" width="128" height="105"/>
     </elements>
 </model>

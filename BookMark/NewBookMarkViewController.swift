@@ -201,6 +201,8 @@ class NewBookMarkViewController: UIViewController {
   
   func done() {
     guard let context = context, let bookMark = NSEntityDescription.insertNewObjectForEntityForName("BookMark", inManagedObjectContext: context) as? BookMark else { return }
+    let photoData = UIImagePNGRepresentation(artworkImage.image!)
+    bookMark.photoData = photoData
     bookMark.name = bookNameTextField.text!
     bookMark.page = Int(pageTextField.text ?? "0")
     bookMark.lastBookMarkDate = NSDate()

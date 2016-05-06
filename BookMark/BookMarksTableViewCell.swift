@@ -11,19 +11,20 @@ import UIKit
 class BookMarksTableViewCell: UITableViewCell {
 
   let nameLabel = UILabel()
-  let messageLabel = UILabel()
   let dateLabel = UILabel()
-  let bookArtwork = UIImageView()
+  let pageLabel = UILabel()
+  var bookArtwork = UIImageView()
   
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     
-    nameLabel.font = UIFont.systemFontOfSize(18, weight: UIFontWeightBold)
-    messageLabel.textColor = .grayColor()
+    nameLabel.font = UIFont.systemFontOfSize(16, weight: UIFontWeightMedium)
     dateLabel.textColor = .grayColor()
+    dateLabel.font = UIFont.systemFontOfSize(16, weight: UIFontWeightMedium)
+    pageLabel.font = UIFont.systemFontOfSize(18, weight: UIFontWeightHeavy)
     bookArtwork.backgroundColor = UIColor.grayColor()
     
-    let labels = [bookArtwork,nameLabel,messageLabel,dateLabel]
+    let labels = [bookArtwork,nameLabel,dateLabel,pageLabel]
     
     for label in labels {
       label.translatesAutoresizingMaskIntoConstraints = false
@@ -38,10 +39,10 @@ class BookMarksTableViewCell: UITableViewCell {
       bookArtwork.widthAnchor.constraintEqualToConstant(40),
       nameLabel.topAnchor.constraintEqualToAnchor(contentView.layoutMarginsGuide.topAnchor),
       nameLabel.leadingAnchor.constraintEqualToAnchor(bookArtwork.trailingAnchor,constant: 10),
-      messageLabel.bottomAnchor.constraintEqualToAnchor(contentView.layoutMarginsGuide.bottomAnchor),
-      messageLabel.leadingAnchor.constraintEqualToAnchor(nameLabel.leadingAnchor),
-      dateLabel.trailingAnchor.constraintEqualToAnchor(contentView.layoutMarginsGuide.trailingAnchor),
-      dateLabel.firstBaselineAnchor.constraintEqualToAnchor(nameLabel.firstBaselineAnchor)
+      dateLabel.bottomAnchor.constraintEqualToAnchor(contentView.layoutMarginsGuide.bottomAnchor),
+      dateLabel.leadingAnchor.constraintEqualToAnchor(nameLabel.leadingAnchor),
+      pageLabel.trailingAnchor.constraintEqualToAnchor(contentView.layoutMarginsGuide.trailingAnchor),
+      pageLabel.firstBaselineAnchor.constraintEqualToAnchor(nameLabel.firstBaselineAnchor)
       
     ]
     

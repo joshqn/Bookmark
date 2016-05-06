@@ -27,8 +27,10 @@ class BookMarksViewController: UIViewController, TableViewFetchedResultsDisplaye
       automaticallyAdjustsScrollViewInsets = false
       
       tableView.registerClass(BookMarksTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+      
       tableView.dataSource = self
       tableView.delegate = self
+      tableView.rowHeight = 66
       fillViewWith(tableView)
       
       if let context = context {
@@ -70,8 +72,11 @@ class BookMarksViewController: UIViewController, TableViewFetchedResultsDisplaye
     guard let bookMark = fetchedResultsController?.objectAtIndexPath(atIndexPath) as? BookMark else { return }
     
     cell.nameLabel.text = bookMark.name ?? "Nil"
-    cell.dateLabel.text = String(bookMark.page ?? 0)
-    cell.messageLabel.text = dateFormatter.stringFromDate(bookMark.lastBookMarkDate ?? NSDate())
+    cell.pageLabel.text = String(bookMark.page ?? 0)
+    cell.dateLabel.text = dateFormatter.stringFromDate(bookMark.lastBookMarkDate ?? NSDate())
+    if let image = UIImage(data: bookMark.photoData!) {
+      cell.bookArtwork.image = image
+    }
     
     
   }
@@ -134,7 +139,7 @@ extension BookMarksViewController: UITableViewDataSource {
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
+    let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! BookMarksTableViewCell
     configureCell(cell, atIndexPath: indexPath)
     return cell 
   }
