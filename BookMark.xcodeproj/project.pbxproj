@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E03F596852E8B5D48B14A28 /* Pods_BookMark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79A71BA6FEC37190DCB6F2F8 /* Pods_BookMark.framework */; };
+		912231D61CDBC32D00B46709 /* UIImageView+loadImageWithURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912231D51CDBC32D00B46709 /* UIImageView+loadImageWithURL.swift */; };
+		912231D81CDBC53200B46709 /* BookmarkImagePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912231D71CDBC53200B46709 /* BookmarkImagePickerVC.swift */; };
 		918D38491CD93AEE00C32FB3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D38481CD93AEE00C32FB3 /* AppDelegate.swift */; };
 		918D384E1CD93AEE00C32FB3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 918D384C1CD93AEE00C32FB3 /* Main.storyboard */; };
 		918D38501CD93AEE00C32FB3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 918D384F1CD93AEE00C32FB3 /* Assets.xcassets */; };
@@ -21,9 +24,14 @@
 		918D386A1CD95AFB00C32FB3 /* TableViewFetchedResultsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D38691CD95AFB00C32FB3 /* TableViewFetchedResultsDelegate.swift */; };
 		918D386C1CD95F3700C32FB3 /* BookMarksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D386B1CD95F3700C32FB3 /* BookMarksTableViewCell.swift */; };
 		918D38721CD97F6A00C32FB3 /* EditBookMarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D38711CD97F6A00C32FB3 /* EditBookMarkViewController.swift */; };
+		918DDB541CDC1AEA006204AC /* BookMarkArtIV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918DDB531CDC1AEA006204AC /* BookMarkArtIV.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5C6F74A51253C5C6F6C02F3F /* Pods-BookMark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookMark.release.xcconfig"; path = "Pods/Target Support Files/Pods-BookMark/Pods-BookMark.release.xcconfig"; sourceTree = "<group>"; };
+		79A71BA6FEC37190DCB6F2F8 /* Pods_BookMark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookMark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		912231D51CDBC32D00B46709 /* UIImageView+loadImageWithURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+loadImageWithURL.swift"; sourceTree = "<group>"; };
+		912231D71CDBC53200B46709 /* BookmarkImagePickerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkImagePickerVC.swift; sourceTree = "<group>"; };
 		918D38451CD93AEE00C32FB3 /* BookMark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookMark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		918D38481CD93AEE00C32FB3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		918D384D1CD93AEE00C32FB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -40,6 +48,8 @@
 		918D38691CD95AFB00C32FB3 /* TableViewFetchedResultsDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewFetchedResultsDelegate.swift; sourceTree = "<group>"; };
 		918D386B1CD95F3700C32FB3 /* BookMarksTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookMarksTableViewCell.swift; sourceTree = "<group>"; };
 		918D38711CD97F6A00C32FB3 /* EditBookMarkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditBookMarkViewController.swift; sourceTree = "<group>"; };
+		918DDB531CDC1AEA006204AC /* BookMarkArtIV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookMarkArtIV.swift; sourceTree = "<group>"; };
+		AD9DE4B9DBE27A8EB77AD3C1 /* Pods-BookMark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookMark.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BookMark/Pods-BookMark.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,17 +57,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E03F596852E8B5D48B14A28 /* Pods_BookMark.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7603C186FA333D20886C0429 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AD9DE4B9DBE27A8EB77AD3C1 /* Pods-BookMark.debug.xcconfig */,
+				5C6F74A51253C5C6F6C02F3F /* Pods-BookMark.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		918D383C1CD93AEE00C32FB3 = {
 			isa = PBXGroup;
 			children = (
 				918D38471CD93AEE00C32FB3 /* BookMark */,
 				918D38461CD93AEE00C32FB3 /* Products */,
+				7603C186FA333D20886C0429 /* Pods */,
+				A1EB9E98ACF2116073C3D74A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,6 +96,7 @@
 			children = (
 				918D38651CD9501B00C32FB3 /* BookMark+CoreDataProperties.swift */,
 				918D38661CD9501B00C32FB3 /* BookMark.swift */,
+				918DDB521CDC1AB0006204AC /* BookmarkImagePickerVC */,
 				918D38731CD9834100C32FB3 /* EditBookMarkVC */,
 				918D38701CD961AE00C32FB3 /* NewBookMarkVC */,
 				918D386F1CD9619400C32FB3 /* BookMarkVC */,
@@ -101,6 +124,7 @@
 			children = (
 				918D38481CD93AEE00C32FB3 /* AppDelegate.swift */,
 				918D385E1CD93D7E00C32FB3 /* UIViewController+FillWithView.swift */,
+				912231D51CDBC32D00B46709 /* UIImageView+loadImageWithURL.swift */,
 				918D385A1CD93B2300C32FB3 /* CDHelper.swift */,
 			);
 			name = Helpers;
@@ -131,6 +155,23 @@
 			name = EditBookMarkVC;
 			sourceTree = "<group>";
 		};
+		918DDB521CDC1AB0006204AC /* BookmarkImagePickerVC */ = {
+			isa = PBXGroup;
+			children = (
+				912231D71CDBC53200B46709 /* BookmarkImagePickerVC.swift */,
+				918DDB531CDC1AEA006204AC /* BookMarkArtIV.swift */,
+			);
+			name = BookmarkImagePickerVC;
+			sourceTree = "<group>";
+		};
+		A1EB9E98ACF2116073C3D74A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				79A71BA6FEC37190DCB6F2F8 /* Pods_BookMark.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -138,9 +179,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 918D38571CD93AEE00C32FB3 /* Build configuration list for PBXNativeTarget "BookMark" */;
 			buildPhases = (
+				37AAB63B9A3D01FE92634408 /* Check Pods Manifest.lock */,
 				918D38411CD93AEE00C32FB3 /* Sources */,
 				918D38421CD93AEE00C32FB3 /* Frameworks */,
 				918D38431CD93AEE00C32FB3 /* Resources */,
+				4A4FE99B0E37291B0D5D7FBA /* Embed Pods Frameworks */,
+				7BE319C4C42FA2B3B8BDAFE0 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -197,13 +241,63 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		37AAB63B9A3D01FE92634408 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		4A4FE99B0E37291B0D5D7FBA /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BookMark/Pods-BookMark-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7BE319C4C42FA2B3B8BDAFE0 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BookMark/Pods-BookMark-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		918D38411CD93AEE00C32FB3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				918DDB541CDC1AEA006204AC /* BookMarkArtIV.swift in Sources */,
 				918D385F1CD93D7E00C32FB3 /* UIViewController+FillWithView.swift in Sources */,
 				918D38491CD93AEE00C32FB3 /* AppDelegate.swift in Sources */,
+				912231D81CDBC53200B46709 /* BookmarkImagePickerVC.swift in Sources */,
 				918D38621CD93E3500C32FB3 /* Model.xcdatamodeld in Sources */,
 				918D386A1CD95AFB00C32FB3 /* TableViewFetchedResultsDelegate.swift in Sources */,
 				918D38641CD93F1200C32FB3 /* NewBookMarkViewController.swift in Sources */,
@@ -212,6 +306,7 @@
 				918D38671CD9501B00C32FB3 /* BookMark+CoreDataProperties.swift in Sources */,
 				918D38681CD9501B00C32FB3 /* BookMark.swift in Sources */,
 				918D386C1CD95F3700C32FB3 /* BookMarksTableViewCell.swift in Sources */,
+				912231D61CDBC32D00B46709 /* UIImageView+loadImageWithURL.swift in Sources */,
 				918D38721CD97F6A00C32FB3 /* EditBookMarkViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -325,6 +420,7 @@
 		};
 		918D38581CD93AEE00C32FB3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD9DE4B9DBE27A8EB77AD3C1 /* Pods-BookMark.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = BookMark/Info.plist;
@@ -336,6 +432,7 @@
 		};
 		918D38591CD93AEE00C32FB3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5C6F74A51253C5C6F6C02F3F /* Pods-BookMark.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = BookMark/Info.plist;
@@ -364,6 +461,7 @@
 				918D38591CD93AEE00C32FB3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
