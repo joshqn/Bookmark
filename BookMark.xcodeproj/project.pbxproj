@@ -10,6 +10,7 @@
 		2E03F596852E8B5D48B14A28 /* Pods_BookMark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79A71BA6FEC37190DCB6F2F8 /* Pods_BookMark.framework */; };
 		912231D61CDBC32D00B46709 /* UIImageView+loadImageWithURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912231D51CDBC32D00B46709 /* UIImageView+loadImageWithURL.swift */; };
 		912231D81CDBC53200B46709 /* BookmarkImagePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912231D71CDBC53200B46709 /* BookmarkImagePickerVC.swift */; };
+		9170B34B1CDC2FD200CB2FE1 /* StyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9170B34A1CDC2FD200CB2FE1 /* StyleKit.swift */; };
 		918D38491CD93AEE00C32FB3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D38481CD93AEE00C32FB3 /* AppDelegate.swift */; };
 		918D384E1CD93AEE00C32FB3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 918D384C1CD93AEE00C32FB3 /* Main.storyboard */; };
 		918D38501CD93AEE00C32FB3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 918D384F1CD93AEE00C32FB3 /* Assets.xcassets */; };
@@ -25,6 +26,7 @@
 		918D386C1CD95F3700C32FB3 /* BookMarksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D386B1CD95F3700C32FB3 /* BookMarksTableViewCell.swift */; };
 		918D38721CD97F6A00C32FB3 /* EditBookMarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D38711CD97F6A00C32FB3 /* EditBookMarkViewController.swift */; };
 		918DDB541CDC1AEA006204AC /* BookMarkArtIV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918DDB531CDC1AEA006204AC /* BookMarkArtIV.swift */; };
+		919F9BE01CDE86EC00D7B6A8 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919F9BDF1CDE86EC00D7B6A8 /* Search.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,7 @@
 		79A71BA6FEC37190DCB6F2F8 /* Pods_BookMark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookMark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		912231D51CDBC32D00B46709 /* UIImageView+loadImageWithURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+loadImageWithURL.swift"; sourceTree = "<group>"; };
 		912231D71CDBC53200B46709 /* BookmarkImagePickerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkImagePickerVC.swift; sourceTree = "<group>"; };
+		9170B34A1CDC2FD200CB2FE1 /* StyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleKit.swift; sourceTree = "<group>"; };
 		918D38451CD93AEE00C32FB3 /* BookMark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookMark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		918D38481CD93AEE00C32FB3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		918D384D1CD93AEE00C32FB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -49,6 +52,7 @@
 		918D386B1CD95F3700C32FB3 /* BookMarksTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookMarksTableViewCell.swift; sourceTree = "<group>"; };
 		918D38711CD97F6A00C32FB3 /* EditBookMarkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditBookMarkViewController.swift; sourceTree = "<group>"; };
 		918DDB531CDC1AEA006204AC /* BookMarkArtIV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookMarkArtIV.swift; sourceTree = "<group>"; };
+		919F9BDF1CDE86EC00D7B6A8 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		AD9DE4B9DBE27A8EB77AD3C1 /* Pods-BookMark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookMark.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BookMark/Pods-BookMark.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -96,12 +100,14 @@
 			children = (
 				918D38651CD9501B00C32FB3 /* BookMark+CoreDataProperties.swift */,
 				918D38661CD9501B00C32FB3 /* BookMark.swift */,
+				919F9BDF1CDE86EC00D7B6A8 /* Search.swift */,
 				918DDB521CDC1AB0006204AC /* BookmarkImagePickerVC */,
 				918D38731CD9834100C32FB3 /* EditBookMarkVC */,
 				918D38701CD961AE00C32FB3 /* NewBookMarkVC */,
 				918D386F1CD9619400C32FB3 /* BookMarkVC */,
 				918D386D1CD9614500C32FB3 /* Protcols */,
 				918D386E1CD9616000C32FB3 /* Helpers */,
+				919F9BDE1CDE86A500D7B6A8 /* StyleKit */,
 				918D38601CD93E3500C32FB3 /* Model.xcdatamodeld */,
 				918D384C1CD93AEE00C32FB3 /* Main.storyboard */,
 				918D384F1CD93AEE00C32FB3 /* Assets.xcassets */,
@@ -162,6 +168,14 @@
 				918DDB531CDC1AEA006204AC /* BookMarkArtIV.swift */,
 			);
 			name = BookmarkImagePickerVC;
+			sourceTree = "<group>";
+		};
+		919F9BDE1CDE86A500D7B6A8 /* StyleKit */ = {
+			isa = PBXGroup;
+			children = (
+				9170B34A1CDC2FD200CB2FE1 /* StyleKit.swift */,
+			);
+			name = StyleKit;
 			sourceTree = "<group>";
 		};
 		A1EB9E98ACF2116073C3D74A /* Frameworks */ = {
@@ -297,6 +311,7 @@
 				918DDB541CDC1AEA006204AC /* BookMarkArtIV.swift in Sources */,
 				918D385F1CD93D7E00C32FB3 /* UIViewController+FillWithView.swift in Sources */,
 				918D38491CD93AEE00C32FB3 /* AppDelegate.swift in Sources */,
+				9170B34B1CDC2FD200CB2FE1 /* StyleKit.swift in Sources */,
 				912231D81CDBC53200B46709 /* BookmarkImagePickerVC.swift in Sources */,
 				918D38621CD93E3500C32FB3 /* Model.xcdatamodeld in Sources */,
 				918D386A1CD95AFB00C32FB3 /* TableViewFetchedResultsDelegate.swift in Sources */,
@@ -306,6 +321,7 @@
 				918D38671CD9501B00C32FB3 /* BookMark+CoreDataProperties.swift in Sources */,
 				918D38681CD9501B00C32FB3 /* BookMark.swift in Sources */,
 				918D386C1CD95F3700C32FB3 /* BookMarksTableViewCell.swift in Sources */,
+				919F9BE01CDE86EC00D7B6A8 /* Search.swift in Sources */,
 				912231D61CDBC32D00B46709 /* UIImageView+loadImageWithURL.swift in Sources */,
 				918D38721CD97F6A00C32FB3 /* EditBookMarkViewController.swift in Sources */,
 			);

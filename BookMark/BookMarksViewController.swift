@@ -22,7 +22,7 @@ class BookMarksViewController: UIViewController, TableViewFetchedResultsDisplaye
       
       title = "Book Marks"
       
-      navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .Plain, target: self, action: #selector(addBarButtonItemPressed(_:)))
+      navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addBarButtonItemPressed(_:)))
       
       automaticallyAdjustsScrollViewInsets = false
       
@@ -30,7 +30,7 @@ class BookMarksViewController: UIViewController, TableViewFetchedResultsDisplaye
       
       tableView.dataSource = self
       tableView.delegate = self
-      tableView.rowHeight = 66
+      tableView.rowHeight = 76
       fillViewWith(tableView)
       
       if let context = context {
@@ -68,17 +68,23 @@ class BookMarksViewController: UIViewController, TableViewFetchedResultsDisplaye
     let cell = cell as! BookMarksTableViewCell
     let dateFormatter = NSDateFormatter()
     dateFormatter.dateStyle = .MediumStyle
-    dateFormatter.timeStyle = .ShortStyle
+    dateFormatter.timeStyle = .NoStyle
     guard let bookMark = fetchedResultsController?.objectAtIndexPath(atIndexPath) as? BookMark else { return }
     
     cell.nameLabel.text = bookMark.name ?? "Nil"
     cell.pageLabel.text = String(bookMark.page ?? 0)
     cell.dateLabel.text = dateFormatter.stringFromDate(bookMark.lastBookMarkDate ?? NSDate())
-    if let image = UIImage(data: bookMark.photoData!) {
-      cell.bookArtwork.image = image
+    
+    if bookMark.photoData == nil {
+      cell.bookArtwork.image = StyleKit.imageOfCanvas1
+      cell.bookArtwork.layer.borderColor = UIColor.clearColor().CGColor
+    } else {
+      guard let photoData = bookMark.photoData else { return }
+      cell.bookArtwork.image = UIImage(data: photoData)
+      cell.bookArtwork.layer.shadowRadius = 4.0
+      cell.bookArtwork.layer.shadowOpacity = 0.5
+      cell.bookArtwork.layer.shadowOffset = CGSize.zero
     }
-    
-    
   }
 
 }
@@ -125,7 +131,7 @@ extension BookMarksViewController: UITableViewDelegate {
 extension BookMarksViewController: UITableViewDataSource {
   
   func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-    return 66
+    return 76
   }
   
   func numberOfSectionsInTableView(tableView: UITableView) -> Int {

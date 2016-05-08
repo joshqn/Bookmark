@@ -17,6 +17,8 @@ class BookmarkImagePickerVC: UIViewController {
   private var superController: UIViewController?
   private var numberOfImages = 0
   
+  var scrollView = UIScrollView()
+  
   var backgroundTint = UIView()
   let tapGesture = UITapGestureRecognizer()
   
@@ -43,7 +45,8 @@ class BookmarkImagePickerVC: UIViewController {
       self.view.translatesAutoresizingMaskIntoConstraints = false 
       superController!.view.addSubview(self.view)
       
-      let scrollView = UIScrollView(frame: self.view.bounds)
+      scrollView = UIScrollView(frame: self.view.bounds)
+      scrollView.indicatorStyle = .Black
       scrollView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
       scrollView.backgroundColor = UIColor.whiteColor()
       self.view.addSubview(scrollView)
@@ -56,6 +59,11 @@ class BookmarkImagePickerVC: UIViewController {
         bookImageView.delegate = self
         bookImageView.translatesAutoresizingMaskIntoConstraints = false
         bookImageView.backgroundColor = UIColor.blueColor()
+        bookImageView.layer.borderWidth = 1.0
+        bookImageView.layer.borderColor = UIColor.blackColor().CGColor
+        bookImageView.layer.shadowOffset = CGSize.zero
+        bookImageView.layer.shadowOpacity = 0.5
+        bookImageView.layer.shadowRadius = 4.0
         bookImageViews.append(bookImageView)
         scrollView.addSubview(bookImageView)
       }
@@ -83,7 +91,7 @@ class BookmarkImagePickerVC: UIViewController {
             
     }
   
-
+  
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

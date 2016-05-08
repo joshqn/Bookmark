@@ -96,26 +96,26 @@ class NewBookMarkViewController: UIViewController {
     bookNameTextField.setContentHuggingPriority(249, forAxis: .Horizontal)
     pageTextField.setContentHuggingPriority(249, forAxis: .Horizontal)
     
-    addPhotoButton.setTitle("Add a Photo", forState: .Normal)
+    addPhotoButton.setTitle("Edit Photo", forState: .Normal)
     addPhotoButton.translatesAutoresizingMaskIntoConstraints = false
     addPhotoButton.addTarget(self, action: #selector(addButtonTapped(_:)), forControlEvents: .TouchUpInside)
     view.addSubview(addPhotoButton)
     
     artworkImage.translatesAutoresizingMaskIntoConstraints = false
-    artworkImage.backgroundColor = UIColor.blueColor()
+    artworkImage.image = StyleKit.imageOfBmArtPlaceHolder
     view.addSubview(artworkImage)
   }
   
   func createAndAddConstraints() {
     let constraints: [NSLayoutConstraint] = [
-    bookNameLabel.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor,constant: 20),
-    bookNameLabel.leadingAnchor.constraintEqualToAnchor(view.layoutMarginsGuide.leadingAnchor),
+    bookNameLabel.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor,constant: 30),
+    bookNameLabel.leadingAnchor.constraintEqualToAnchor(artworkImage.trailingAnchor,constant: 10),
     
     pageLabel.topAnchor.constraintEqualToAnchor(bookNameLabel.bottomAnchor, constant: 15),
-    pageLabel.leadingAnchor.constraintEqualToAnchor(view.layoutMarginsGuide.leadingAnchor),
+    pageLabel.leadingAnchor.constraintEqualToAnchor(bookNameLabel.leadingAnchor),
     
     bookNameTextField.centerYAnchor.constraintEqualToAnchor(bookNameLabel.centerYAnchor),
-    bookNameTextField.leadingAnchor.constraintEqualToAnchor(bookNameLabel.trailingAnchor, constant: 20),
+    bookNameTextField.leadingAnchor.constraintEqualToAnchor(bookNameLabel.trailingAnchor, constant: 15),
     bookNameTextField.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor, constant: -20),
     bookBottomBorder.widthAnchor.constraintEqualToAnchor(bookNameTextField.widthAnchor),
     bookBottomBorder.bottomAnchor.constraintEqualToAnchor(bookNameTextField.bottomAnchor),
@@ -123,20 +123,20 @@ class NewBookMarkViewController: UIViewController {
     bookBottomBorder.heightAnchor.constraintEqualToConstant(1),
     
     pageTextField.centerYAnchor.constraintEqualToAnchor(pageLabel.centerYAnchor),
-    pageTextField.leadingAnchor.constraintEqualToAnchor(pageLabel.trailingAnchor, constant: 20),
+    pageTextField.leadingAnchor.constraintEqualToAnchor(pageLabel.trailingAnchor, constant: 15),
     pageTextField.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor, constant: -20),
     pageBottomBorder.widthAnchor.constraintEqualToAnchor(pageTextField.widthAnchor),
     pageBottomBorder.bottomAnchor.constraintEqualToAnchor(pageTextField.bottomAnchor),
     pageBottomBorder.leadingAnchor.constraintEqualToAnchor(pageTextField.leadingAnchor),
     pageBottomBorder.heightAnchor.constraintEqualToConstant(1),
     
-    addPhotoButton.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor),
-    addPhotoButton.centerYAnchor.constraintEqualToAnchor(view.centerYAnchor),
+    addPhotoButton.topAnchor.constraintEqualToAnchor(artworkImage.bottomAnchor,constant: 5),
+    addPhotoButton.centerXAnchor.constraintEqualToAnchor(artworkImage.centerXAnchor),
     
-    artworkImage.topAnchor.constraintEqualToAnchor(addPhotoButton.bottomAnchor, constant: 20),
-    artworkImage.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor),
-    artworkImage.heightAnchor.constraintEqualToConstant(100),
-    artworkImage.widthAnchor.constraintEqualToConstant(100)
+    artworkImage.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 20),
+    artworkImage.leadingAnchor.constraintEqualToAnchor(view.layoutMarginsGuide.leadingAnchor),
+    artworkImage.heightAnchor.constraintEqualToConstant(80),
+    artworkImage.widthAnchor.constraintEqualToConstant(80)
     
     ]
     
@@ -149,43 +149,11 @@ class NewBookMarkViewController: UIViewController {
     if length == 0 {
       navigationItem.rightBarButtonItem?.tintColor = UIColor.lightGrayColor()
       navigationItem.rightBarButtonItem?.enabled = false
+      addPhotoButton.enabled = false
     } else {
       navigationItem.rightBarButtonItem?.tintColor = view.tintColor
       navigationItem.rightBarButtonItem?.enabled = true
-    }
-  }
-  
-  func sendMyApiRequest(bookName:String, completion:(url:NSURL) -> Void) {
-    
-    // Add URL parameters
-    let urlParams = [
-      "term":bookName,
-      "limit":"6",
-      "entity":"ebook",
-      ]
-    
-    // Fetch Request
-    Alamofire.request(.GET, "http://itunes.apple.com/search", parameters: urlParams)
-      .validate(statusCode: 200..<300)
-      .responseJSON { response in
-        if (response.result.error == nil) {
-          guard let response = response.result.value as? NSDictionary else { return }
-          guard let results = response.valueForKey("results") as? [AnyObject] else { return }
-          
-          for result in results {
-            if let result = result as? [String:AnyObject] {
-              if let urls:NSURL = NSURL(string: result["artworkUrl100"] as! String) {
-                completion(url: urls)
-              }
-            } else {
-              print("failed")
-            }
-          }
-          
-        }
-        else {
-          debugPrint("HTTP Request failed: \(response.result.error)")
-        }
+      addPhotoButton.enabled = true 
     }
   }
   
@@ -201,8 +169,15 @@ class NewBookMarkViewController: UIViewController {
   
   func done() {
     guard let context = context, let bookMark = NSEntityDescription.insertNewObjectForEntityForName("BookMark", inManagedObjectContext: context) as? BookMark else { return }
-    let photoData = UIImagePNGRepresentation(artworkImage.image!)
-    bookMark.photoData = photoData
+    
+    //I'm checking to see if a different image than the default was selected. If not It's set to nil so that the different default image in the main VC is used and not this one.
+    if artworkImage.image == StyleKit.imageOfBmArtPlaceHolder {
+      bookMark.photoData = nil
+    } else {
+      let photoData = UIImagePNGRepresentation(artworkImage.image!)
+      bookMark.photoData = photoData
+    }
+    
     bookMark.name = bookNameTextField.text!
     bookMark.page = Int(pageTextField.text ?? "0")
     bookMark.lastBookMarkDate = NSDate()
@@ -228,7 +203,7 @@ class NewBookMarkViewController: UIViewController {
     self.topAnchor.active = true
     
     view.endEditing(true)
-    let optionMenu = UIAlertController(title: "Add a Photo", message: "Take a picture or Search for one", preferredStyle: .ActionSheet)
+    let optionMenu = UIAlertController(title: "Edit Photo", message: "Take a Picture or Search for One", preferredStyle: .ActionSheet)
     let searchAction = UIAlertAction(title: "Search", style: .Default) { (action) in
       self.showBookmarkImagePicker(self.bookMarkImagePickerVC!)
     }
@@ -280,7 +255,7 @@ extension NewBookMarkViewController: BookmarkImagePickerDelegate {
   func hideBookmarkImagePicker(view: BookmarkImagePickerVC) {
     topAnchor.constant = 0
     
-    UIView.animateWithDuration(0.5, animations: {
+    UIView.animateWithDuration(0.33, animations: {
       self.view.layoutIfNeeded()
       self.navigationController?.navigationBarHidden = false
 
@@ -293,7 +268,7 @@ extension NewBookMarkViewController: BookmarkImagePickerDelegate {
   }
   
   func setImageAtIndex(view: BookmarkImagePickerVC, scrollView: UIScrollView, images: [BookMarkArtIV]) {
-    sendMyApiRequest(bookNameTextField.text!) { (url) in
+    Search.sendMyApiRequest(bookNameTextField.text!) { (url) in
       images[self.i].tag = self.i
       images[self.i].image = nil
       images[self.i].loadImageWithURL(url)
@@ -303,7 +278,25 @@ extension NewBookMarkViewController: BookmarkImagePickerDelegate {
   }
   
   func imageWasSelectedWithTag(view: BookMarkArtIVDelegate, image: BookMarkArtIV) {
-    artworkImage.image = image.image
+    UIView.animateWithDuration(0.12, delay: 0.0, options: .CurveEaseOut, animations: {
+     self.artworkImage.alpha = 0.0
+      }, completion: { completed in
+        UIView.animateWithDuration(0.20, animations: {
+          self.artworkImage.image = image.image
+          self.artworkImage.alpha = 1.0
+          self.artworkImage.layer.shadowRadius = 4.0
+          self.artworkImage.layer.shadowOffset = CGSize.zero
+          self.artworkImage.layer.shadowOpacity = 0.5
+          self.artworkImage.layer.borderColor = UIColor.blackColor().CGColor
+          self.artworkImage.layer.borderWidth = 1.0
+          }, completion: { completed in
+            
+        })
+    })
+    
+    
+    
+    hideBookmarkImagePicker(bookMarkImagePickerVC!)
   }
   
 }
@@ -311,7 +304,7 @@ extension NewBookMarkViewController: BookmarkImagePickerDelegate {
 extension NewBookMarkViewController: BookmarkImagePickerDataSource {
   
   func numberOfImagesToDisplay(scrollView: UIScrollView) -> Int {
-    return 6
+    return 8
   }
   
 }
