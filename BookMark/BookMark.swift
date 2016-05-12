@@ -7,11 +7,27 @@
 //
 
 import Foundation
+import UIKit
 import CoreData
 
 
 class BookMark: NSManagedObject {
-
-// Insert code here to add functionality to your managed object subclass
+  
+  var pageNumberAsText: String {
+    get {
+      let formatter = NSNumberFormatter()
+      guard let page = page else { return "0" }
+      guard let number = formatter.stringFromNumber(page) else { return "0" }
+      return number
+    }
+  }
+  
+  var bookImage: UIImage {
+    get {
+      guard let photoData = photoData else { return UIImage() }
+      guard let image = UIImage(data: photoData) else { return UIImage() }
+      return image
+    }
+  }
 
 }

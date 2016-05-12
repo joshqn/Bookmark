@@ -96,12 +96,11 @@
 		918D38471CD93AEE00C32FB3 /* BookMark */ = {
 			isa = PBXGroup;
 			children = (
-				918D38651CD9501B00C32FB3 /* BookMark+CoreDataProperties.swift */,
-				918D38661CD9501B00C32FB3 /* BookMark.swift */,
-				919F9BDF1CDE86EC00D7B6A8 /* Search.swift */,
+				B08A6E571CE40E1D000E6ECC /* Model */,
 				918DDB521CDC1AB0006204AC /* BookmarkImagePickerVC */,
 				918D38701CD961AE00C32FB3 /* NewBookMarkVC */,
 				918D386F1CD9619400C32FB3 /* BookMarkVC */,
+				B08A6E561CE40E0F000E6ECC /* Search */,
 				918D386D1CD9614500C32FB3 /* Protcols */,
 				918D386E1CD9616000C32FB3 /* Helpers */,
 				919F9BDE1CDE86A500D7B6A8 /* StyleKit */,
@@ -173,6 +172,23 @@
 				79A71BA6FEC37190DCB6F2F8 /* Pods_BookMark.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B08A6E561CE40E0F000E6ECC /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				919F9BDF1CDE86EC00D7B6A8 /* Search.swift */,
+			);
+			name = Search;
+			sourceTree = "<group>";
+		};
+		B08A6E571CE40E1D000E6ECC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				918D38651CD9501B00C32FB3 /* BookMark+CoreDataProperties.swift */,
+				918D38661CD9501B00C32FB3 /* BookMark.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

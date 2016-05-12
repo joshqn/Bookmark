@@ -57,29 +57,27 @@ class NewBookMarkViewController: UIViewController {
       tapGesture.addTarget(self, action: #selector(viewTapped))
       view.addGestureRecognizer(tapGesture)
       
+      let didTapOnImageArtwork = UITapGestureRecognizer()
+      didTapOnImageArtwork.addTarget(self, action: #selector(EditButtonTapped(_:)))
+      artworkImage.addGestureRecognizer(didTapOnImageArtwork)
+      
       if bookmark == nil {
         title = "New Book Mark"
-        artworkImage.image = StyleKit.imageOfBmArtPlaceHolder
+        artworkImage.image = UIImage(named: "AddArtworkPH")
         bookNameTextField.becomeFirstResponder()
         updateDoneButton(forCharCount: 0)
-        
       } else {
         title = "Edit Book"
-        guard let bookMark = bookmark else { return }
-        bookNameTextField.text = bookmark!.name
-        guard let pageNumber = bookmark?.page else { return }
-        pageTextField.text = "\(pageNumber)"
-        guard let photoData = bookMark.photoData else { return }
-        artworkImage.image = UIImage(data: photoData)
-        self.artworkImage.layer.shadowRadius = 4.0
-        self.artworkImage.layer.shadowOffset = CGSize.zero
-        self.artworkImage.layer.shadowOpacity = 0.5
-        self.artworkImage.layer.borderColor = UIColor.blackColor().CGColor
-        self.artworkImage.layer.borderWidth = 1.0
+        guard let bookmark = bookmark else { return }
+        bookNameTextField.text = bookmark.name
+        pageTextField.text = bookmark.pageNumberAsText
+        artworkImage.image = bookmark.bookImage
         updateDoneButton(forCharCount: 1)
         pageTextField.becomeFirstResponder()
         
       }
+      
+      dressUpImageLayer(artworkImage.layer)
       
       createUI()
       createAndAddConstraints()
@@ -127,7 +125,7 @@ class NewBookMarkViewController: UIViewController {
     
     addPhotoButton.setTitle("Edit", forState: .Normal)
     addPhotoButton.translatesAutoresizingMaskIntoConstraints = false
-    addPhotoButton.addTarget(self, action: #selector(addButtonTapped(_:)), forControlEvents: .TouchUpInside)
+    addPhotoButton.addTarget(self, action: #selector(EditButtonTapped(_:)), forControlEvents: .TouchUpInside)
     view.addSubview(addPhotoButton)
     
     artworkImage.translatesAutoresizingMaskIntoConstraints = false
@@ -224,55 +222,33 @@ class NewBookMarkViewController: UIViewController {
   }
   
   func done() {
-    if bookmark != nil {
-      guard let context = context, let bookmark = bookmark else { return }
-      if artworkImage.image == StyleKit.imageOfBmArtPlaceHolder {
-        bookmark.photoData = nil
-      } else {
-        let photoData = UIImagePNGRepresentation(artworkImage.image!)
-        bookmark.photoData = photoData
-      }
-      bookmark.name = bookNameTextField.text!
-      bookmark.page = Int(pageTextField.text ?? "0")
-      bookmark.lastBookMarkDate = NSDate()
-      
-      do {
-        try context.save()
-      } catch {
-        print("Error saving")
-      }
-      
-      delegate?.newBookCreated(self)
-      dismissViewControllerAnimated(true, completion: nil)
-    } else {
-      guard let context = context, let bookMark = NSEntityDescription.insertNewObjectForEntityForName("BookMark", inManagedObjectContext: context) as? BookMark else { return }
-      
-      //I'm checking to see if a different image than the default was selected. If not It's set to nil so that the different default image in the main VC is used and not this one.
-      if artworkImage.image == StyleKit.imageOfBmArtPlaceHolder {
-        bookMark.photoData = nil
-      } else {
-        let photoData = UIImagePNGRepresentation(artworkImage.image!)
-        bookMark.photoData = photoData
-      }
-      bookMark.name = bookNameTextField.text!
-      bookMark.page = Int(pageTextField.text ?? "0")
-      bookMark.lastBookMarkDate = NSDate()
-      
-      do {
-        try context.save()
-      } catch {
-        print("Error saving")
-      }
-      
-      delegate?.newBookCreated(self)
-      dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    
-    
+    save(bookmark, context: context, artworkImage: artworkImage, delegate: delegate)
   }
   
-  func addButtonTapped(button: UIButton) {
+  func save(bookmark: BookMark?, context: NSManagedObjectContext?, artworkImage: BookMarkArtIV, delegate: NewBookMarkCreationDelegate?) {
+    guard let context = context, let delegate = delegate else { return }
+    guard let bookmark = bookmark != nil ? bookmark : NSEntityDescription.insertNewObjectForEntityForName("BookMark", inManagedObjectContext: context) as? BookMark else { return }
+    if artworkImage.image == StyleKit.imageOfBmArtPlaceHolder {
+      bookmark.photoData = nil
+    } else {
+      let photoData = UIImagePNGRepresentation(artworkImage.image!)
+      bookmark.photoData = photoData
+    }
+    bookmark.name = bookNameTextField.text!
+    bookmark.page = Int(pageTextField.text ?? "0")
+    bookmark.lastBookMarkDate = NSDate()
+    
+    do {
+      try context.save()
+    } catch {
+      print("Error saving")
+    }
+    
+    delegate.newBookCreated(self)
+    dismissViewControllerAnimated(true, completion: nil)
+  }
+  
+  func EditButtonTapped(button: UIButton) {
     topAnchor?.priority = 249
     bookMarkImagePickerVC?.turnOnNotifications()
     bookMarkImagePickerVC?.reloadImageViews()
@@ -303,6 +279,14 @@ class NewBookMarkViewController: UIViewController {
     
     self.presentViewController(optionMenu, animated: true, completion: nil)
     
+  }
+  
+  func dressUpImageLayer(layer: CALayer) {
+    layer.shadowRadius = 4.0
+    layer.shadowOffset = CGSize.zero
+    layer.shadowOpacity = 0.5
+    layer.borderColor = UIColor.blackColor().CGColor
+    layer.borderWidth = 1.0
   }
 
 }
@@ -352,11 +336,7 @@ extension NewBookMarkViewController: BookmarkImagePickerDelegate {
         UIView.animateWithDuration(0.2, animations: {
           self.artworkImage.image = image.image
           self.artworkImage.alpha = 1.0
-          self.artworkImage.layer.shadowRadius = 4.0
-          self.artworkImage.layer.shadowOffset = CGSize.zero
-          self.artworkImage.layer.shadowOpacity = 0.5
-          self.artworkImage.layer.borderColor = UIColor.blackColor().CGColor
-          self.artworkImage.layer.borderWidth = 1.0
+          self.dressUpImageLayer(self.artworkImage.layer)
         })
     })
     

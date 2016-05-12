@@ -73,15 +73,14 @@ class BookMarksViewController: UIViewController, TableViewFetchedResultsDisplaye
     guard let bookMark = fetchedResultsController?.objectAtIndexPath(atIndexPath) as? BookMark else { return }
     
     cell.nameLabel.text = bookMark.name ?? "Nil"
-    cell.pageLabel.text = String(bookMark.page ?? 0)
+    cell.pageLabel.text = bookMark.pageNumberAsText
     cell.dateLabel.text = dateFormatter.stringFromDate(bookMark.lastBookMarkDate ?? NSDate())
     
     if bookMark.photoData == nil {
       cell.bookArtwork.image = StyleKit.imageOfCanvas1
       cell.bookArtwork.layer.borderColor = UIColor.clearColor().CGColor
     } else {
-      guard let photoData = bookMark.photoData else { return }
-      cell.bookArtwork.image = UIImage(data: photoData)
+      cell.bookArtwork.image = bookMark.bookImage
       cell.bookArtwork.layer.shadowRadius = 4.0
       cell.bookArtwork.layer.shadowOpacity = 0.5
       cell.bookArtwork.layer.shadowOffset = CGSize.zero
@@ -134,10 +133,6 @@ extension BookMarksViewController: UITableViewDataSource {
   
   func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
     return cellHeight
-  }
-  
-  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-    return 1
   }
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
