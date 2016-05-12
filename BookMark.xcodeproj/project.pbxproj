@@ -24,7 +24,6 @@
 		918D38681CD9501B00C32FB3 /* BookMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D38661CD9501B00C32FB3 /* BookMark.swift */; };
 		918D386A1CD95AFB00C32FB3 /* TableViewFetchedResultsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D38691CD95AFB00C32FB3 /* TableViewFetchedResultsDelegate.swift */; };
 		918D386C1CD95F3700C32FB3 /* BookMarksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D386B1CD95F3700C32FB3 /* BookMarksTableViewCell.swift */; };
-		918D38721CD97F6A00C32FB3 /* EditBookMarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D38711CD97F6A00C32FB3 /* EditBookMarkViewController.swift */; };
 		918DDB541CDC1AEA006204AC /* BookMarkArtIV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918DDB531CDC1AEA006204AC /* BookMarkArtIV.swift */; };
 		919F9BE01CDE86EC00D7B6A8 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919F9BDF1CDE86EC00D7B6A8 /* Search.swift */; };
 /* End PBXBuildFile section */
@@ -45,12 +44,11 @@
 		918D385C1CD93B5B00C32FB3 /* BookMarksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookMarksViewController.swift; sourceTree = "<group>"; };
 		918D385E1CD93D7E00C32FB3 /* UIViewController+FillWithView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+FillWithView.swift"; sourceTree = "<group>"; };
 		918D38611CD93E3500C32FB3 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		918D38631CD93F1200C32FB3 /* NewBookMarkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBookMarkViewController.swift; sourceTree = "<group>"; };
+		918D38631CD93F1200C32FB3 /* NewBookMarkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = NewBookMarkViewController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		918D38651CD9501B00C32FB3 /* BookMark+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BookMark+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		918D38661CD9501B00C32FB3 /* BookMark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookMark.swift; sourceTree = "<group>"; };
 		918D38691CD95AFB00C32FB3 /* TableViewFetchedResultsDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewFetchedResultsDelegate.swift; sourceTree = "<group>"; };
 		918D386B1CD95F3700C32FB3 /* BookMarksTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookMarksTableViewCell.swift; sourceTree = "<group>"; };
-		918D38711CD97F6A00C32FB3 /* EditBookMarkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditBookMarkViewController.swift; sourceTree = "<group>"; };
 		918DDB531CDC1AEA006204AC /* BookMarkArtIV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookMarkArtIV.swift; sourceTree = "<group>"; };
 		919F9BDF1CDE86EC00D7B6A8 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		AD9DE4B9DBE27A8EB77AD3C1 /* Pods-BookMark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookMark.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BookMark/Pods-BookMark.debug.xcconfig"; sourceTree = "<group>"; };
@@ -102,7 +100,6 @@
 				918D38661CD9501B00C32FB3 /* BookMark.swift */,
 				919F9BDF1CDE86EC00D7B6A8 /* Search.swift */,
 				918DDB521CDC1AB0006204AC /* BookmarkImagePickerVC */,
-				918D38731CD9834100C32FB3 /* EditBookMarkVC */,
 				918D38701CD961AE00C32FB3 /* NewBookMarkVC */,
 				918D386F1CD9619400C32FB3 /* BookMarkVC */,
 				918D386D1CD9614500C32FB3 /* Protcols */,
@@ -151,14 +148,6 @@
 				918D38631CD93F1200C32FB3 /* NewBookMarkViewController.swift */,
 			);
 			name = NewBookMarkVC;
-			sourceTree = "<group>";
-		};
-		918D38731CD9834100C32FB3 /* EditBookMarkVC */ = {
-			isa = PBXGroup;
-			children = (
-				918D38711CD97F6A00C32FB3 /* EditBookMarkViewController.swift */,
-			);
-			name = EditBookMarkVC;
 			sourceTree = "<group>";
 		};
 		918DDB521CDC1AB0006204AC /* BookmarkImagePickerVC */ = {
@@ -221,6 +210,7 @@
 				TargetAttributes = {
 					918D38441CD93AEE00C32FB3 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 8U6MT8796W;
 					};
 				};
 			};
@@ -323,7 +313,6 @@
 				918D386C1CD95F3700C32FB3 /* BookMarksTableViewCell.swift in Sources */,
 				919F9BE01CDE86EC00D7B6A8 /* Search.swift in Sources */,
 				912231D61CDBC32D00B46709 /* UIImageView+loadImageWithURL.swift in Sources */,
-				918D38721CD97F6A00C32FB3 /* EditBookMarkViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,10 +428,13 @@
 			baseConfigurationReference = AD9DE4B9DBE27A8EB77AD3C1 /* Pods-BookMark.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = BookMark/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.KuehnLLC.BookMark;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -451,10 +443,13 @@
 			baseConfigurationReference = 5C6F74A51253C5C6F6C02F3F /* Pods-BookMark.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = BookMark/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.KuehnLLC.BookMark;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

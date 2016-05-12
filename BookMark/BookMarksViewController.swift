@@ -16,6 +16,7 @@ class BookMarksViewController: UIViewController, TableViewFetchedResultsDisplaye
   private let tableView = UITableView(frame: CGRect.zero,style: .Plain)
   private let cellIdentifier = "BookMarkCell"
   private var fetchedResultsDelegate: NSFetchedResultsControllerDelegate?
+  private let cellHeight:CGFloat = 80
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +31,7 @@ class BookMarksViewController: UIViewController, TableViewFetchedResultsDisplaye
       
       tableView.dataSource = self
       tableView.delegate = self
-      tableView.rowHeight = 76
+      tableView.rowHeight = cellHeight
       fillViewWith(tableView)
       
       if let context = context {
@@ -93,10 +94,11 @@ extension BookMarksViewController: UITableViewDelegate {
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     guard let bookMark = fetchedResultsController?.objectAtIndexPath(indexPath) as? BookMark else { return }
-    let editBookVC = EditBookMarkViewController()
-    let navVC = UINavigationController(rootViewController: editBookVC)
-    editBookVC.context = context
-    editBookVC.bookMark = bookMark
+    let newBooksVC = NewBookMarkViewController()
+    newBooksVC.delegate = self
+    newBooksVC.context = context
+    newBooksVC.bookmark = bookMark
+    let navVC = UINavigationController(rootViewController: newBooksVC)
     presentViewController(navVC, animated: true, completion: nil)
     tableView.deselectRowAtIndexPath(indexPath, animated: true)
   }
@@ -131,7 +133,7 @@ extension BookMarksViewController: UITableViewDelegate {
 extension BookMarksViewController: UITableViewDataSource {
   
   func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-    return 76
+    return cellHeight
   }
   
   func numberOfSectionsInTableView(tableView: UITableView) -> Int {

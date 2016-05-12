@@ -43,7 +43,7 @@ class BookMarksTableViewCell: UITableViewCell {
       bookArtwork.topAnchor.constraintEqualToAnchor(contentView.layoutMarginsGuide.topAnchor),
       bookArtwork.leadingAnchor.constraintEqualToAnchor(contentView.layoutMarginsGuide.leadingAnchor),
       bookArtwork.bottomAnchor.constraintEqualToAnchor(contentView.layoutMarginsGuide.bottomAnchor),
-      bookArtwork.widthAnchor.constraintEqualToConstant(55),
+      bookArtwork.widthAnchor.constraintEqualToConstant(42),
       bookmarkButton.trailingAnchor.constraintEqualToAnchor(contentView.layoutMarginsGuide.trailingAnchor),
       bookmarkButton.centerYAnchor.constraintEqualToAnchor(contentView.centerYAnchor),
       nameLabel.topAnchor.constraintEqualToAnchor(contentView.layoutMarginsGuide.topAnchor),
