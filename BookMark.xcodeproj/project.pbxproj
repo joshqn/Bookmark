@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2E03F596852E8B5D48B14A28 /* Pods_BookMark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79A71BA6FEC37190DCB6F2F8 /* Pods_BookMark.framework */; };
-		912231D61CDBC32D00B46709 /* UIImageView+loadImageWithURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912231D51CDBC32D00B46709 /* UIImageView+loadImageWithURL.swift */; };
 		912231D81CDBC53200B46709 /* BookmarkImagePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912231D71CDBC53200B46709 /* BookmarkImagePickerVC.swift */; };
 		9170B34B1CDC2FD200CB2FE1 /* StyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9170B34A1CDC2FD200CB2FE1 /* StyleKit.swift */; };
 		918D38491CD93AEE00C32FB3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D38481CD93AEE00C32FB3 /* AppDelegate.swift */; };
@@ -31,7 +30,6 @@
 /* Begin PBXFileReference section */
 		5C6F74A51253C5C6F6C02F3F /* Pods-BookMark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookMark.release.xcconfig"; path = "Pods/Target Support Files/Pods-BookMark/Pods-BookMark.release.xcconfig"; sourceTree = "<group>"; };
 		79A71BA6FEC37190DCB6F2F8 /* Pods_BookMark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookMark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		912231D51CDBC32D00B46709 /* UIImageView+loadImageWithURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+loadImageWithURL.swift"; sourceTree = "<group>"; };
 		912231D71CDBC53200B46709 /* BookmarkImagePickerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkImagePickerVC.swift; sourceTree = "<group>"; };
 		9170B34A1CDC2FD200CB2FE1 /* StyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleKit.swift; sourceTree = "<group>"; };
 		918D38451CD93AEE00C32FB3 /* BookMark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookMark.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,7 +124,6 @@
 			children = (
 				918D38481CD93AEE00C32FB3 /* AppDelegate.swift */,
 				918D385E1CD93D7E00C32FB3 /* UIViewController+FillWithView.swift */,
-				912231D51CDBC32D00B46709 /* UIImageView+loadImageWithURL.swift */,
 				918D385A1CD93B2300C32FB3 /* CDHelper.swift */,
 			);
 			name = Helpers;
@@ -328,7 +325,6 @@
 				918D38681CD9501B00C32FB3 /* BookMark.swift in Sources */,
 				918D386C1CD95F3700C32FB3 /* BookMarksTableViewCell.swift in Sources */,
 				919F9BE01CDE86EC00D7B6A8 /* Search.swift in Sources */,
-				912231D61CDBC32D00B46709 /* UIImageView+loadImageWithURL.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

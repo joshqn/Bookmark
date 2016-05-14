@@ -33,8 +33,6 @@ class NewBookMarkViewController: UIViewController {
   private let addPhotoButton = UIButton(type: UIButtonType.System)
   private var artworkImage = BookMarkArtIV()
   
-  var i = 0
-  
   var bookMarkImagePickerVC: BookmarkImagePickerVC?
   
   var topAnchor: NSLayoutConstraint?
@@ -134,7 +132,6 @@ class NewBookMarkViewController: UIViewController {
     bookMarkImagePickerVC = BookmarkImagePickerVC(superController: self)
     bookMarkImagePickerVC?.turnOnNotifications()
     self.bookMarkImagePickerVC?.delegate = self
-    self.bookMarkImagePickerVC?.dataSource = self
     
     searchBar = UISearchBar()
     searchBar.translatesAutoresizingMaskIntoConstraints = false
@@ -251,12 +248,14 @@ class NewBookMarkViewController: UIViewController {
   func EditButtonTapped(button: UIButton) {
     topAnchor?.priority = 249
     bookMarkImagePickerVC?.turnOnNotifications()
-    bookMarkImagePickerVC?.reloadImageViews()
-    i = 0
+    guard let textField = self.bookNameTextField.isFirstResponder() || self.pageTextField.isFirstResponder() == true ? self.bookNameTextField.text : self.searchBar.text else { return }
+    self.bookMarkImagePickerVC?.performSearchWithText(textField)
     
     let optionMenu = UIAlertController(title: "Edit Photo", message: "Take a Picture or Search for One", preferredStyle: .ActionSheet)
     let searchAction = UIAlertAction(title: "Search", style: .Default) { (action) in
       NSLayoutConstraint.activateConstraints(self.searchBarConstraints)
+    
+
       self.searchBar.text = self.bookNameTextField.text
       UIView.animateWithDuration(0.33, animations: {
         self.view.layoutIfNeeded()
@@ -317,18 +316,6 @@ extension NewBookMarkViewController: BookmarkImagePickerDelegate {
     })
   }
   
-  func setImageAtIndex(view: BookmarkImagePickerVC, scrollView: UIScrollView, images: [BookMarkArtIV]) {
-    guard let textField = bookNameTextField.isFirstResponder() || pageTextField.isFirstResponder() == true ? bookNameTextField.text : searchBar.text else { return }
-    i = 0
-    Search.sendMyApiRequest(textField) { (url) in
-      images[self.i].tag = self.i
-      images[self.i].image = nil
-      images[self.i].loadImageWithURL(url)
-      self.i = self.i + 1
-      
-    }
-  }
-  
   func imageWasSelectedWithTag(view: BookMarkArtIVDelegate, image: BookMarkArtIV) {
     UIView.animateWithDuration(0.12, delay: 0.0, options: .CurveEaseOut, animations: {
      self.artworkImage.alpha = 0.0
@@ -346,17 +333,10 @@ extension NewBookMarkViewController: BookmarkImagePickerDelegate {
   
 }
 
-extension NewBookMarkViewController: BookmarkImagePickerDataSource {
-  
-  func numberOfImagesToDisplay(scrollView: UIScrollView) -> Int {
-    return 8
-  }
-  
-}
-
 extension NewBookMarkViewController: UISearchBarDelegate {
   func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-    bookMarkImagePickerVC?.reloadImageViews()
+    guard let textField = self.bookNameTextField.isFirstResponder() || self.pageTextField.isFirstResponder() == true ? self.bookNameTextField.text : self.searchBar.text else { return }
+    self.bookMarkImagePickerVC?.performSearchWithText(textField)
   }
 }
 

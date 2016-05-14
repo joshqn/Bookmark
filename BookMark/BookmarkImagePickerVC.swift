@@ -11,14 +11,15 @@ import UIKit
 class BookmarkImagePickerVC: UIViewController {
     
     weak var delegate: BookmarkImagePickerDelegate?
-    weak var dataSource: BookmarkImagePickerDataSource?
     
     private var bookImageViews:[BookMarkArtIV] = []
     private var superController: UIViewController?
     private var numberOfImages = 0
     private var isCurrentlyVisible = false
     var bottomConstraint:NSLayoutConstraint!
-  var scrollView:UIScrollView?
+    var scrollView:UIScrollView?
+  
+  let search = Search()
   
     init(superController: UIViewController) {
         super.init(nibName: nil, bundle: nil)
@@ -54,47 +55,118 @@ class BookmarkImagePickerVC: UIViewController {
         let tapGesture = UITapGestureRecognizer()
         tapGesture.addTarget(self, action: #selector(tapped))
         scrollView.addGestureRecognizer(tapGesture)
-        
-      numberOfImages = (dataSource?.numberOfImagesToDisplay(scrollView))!
-      scrollView.contentSize.width = (20 + (78 * CGFloat(numberOfImages)))
-        
-      for _ in 1...numberOfImages {
-        let bookImageView = BookMarkArtIV()
-        bookImageView.translatesAutoresizingMaskIntoConstraints = false
-        bookImageView.backgroundColor = UIColor.blueColor()
-        bookImageView.layer.borderWidth = 1.0
-        bookImageView.layer.borderColor = UIColor.blackColor().CGColor
-        bookImageView.layer.shadowOffset = CGSize.zero
-        bookImageView.layer.shadowOpacity = 0.5
-        bookImageView.layer.shadowRadius = 4.0
-        bookImageViews.append(bookImageView)
-        scrollView.addSubview(bookImageView)
-      }
       
       let constraints: [NSLayoutConstraint] = [
         self.view.widthAnchor.constraintEqualToAnchor(superController!.view.widthAnchor),
-        //The image is 80 so I gave it a 20 point top and bottom margin here
         self.view.heightAnchor.constraintEqualToConstant(120),
         ]
       
-      var i:CGFloat = 0
-      for bookImageView in bookImageViews {
-        bookImageView.delegate = self
-        //The leading anchor is built with a 20 point margin between each view and it's left side and right
-        bookImageView.leadingAnchor.constraintEqualToAnchor(scrollView.leadingAnchor,constant: 20 + (78 * i)).active = true
-        bookImageView.topAnchor.constraintEqualToAnchor(scrollView.topAnchor,constant: 20).active = true
-        bookImageView.heightAnchor.constraintEqualToConstant(80).active = true
-        bookImageView.widthAnchor.constraintEqualToConstant(58).active = true
-        i = i + 1
-      }
-        
         NSLayoutConstraint.activateConstraints(constraints)
         
     }
   
+  func performSearchWithText(text:String) {
+    guard let scrollView = scrollView else { return }
+    scrollView.subviews.forEach({ $0.removeFromSuperview() })
+    
+    var spinner = UIActivityIndicatorView()
+    spinner = showSpinner(scrollView)
+    
+    search.performSearchForText(text) { success in
+      guard success != false else {
+        spinner.stopAnimating()
+  
+        return
+      }
+      spinner.stopAnimating()
+      self.reloadImageViews()
+    }
+  }
+  
+  func loadImageViewIndex(scrollView:UIScrollView, viewWithIndex index: Int) {
+    let imageView = BookMarkArtIV()
+    imageView.backgroundColor = UIColor.whiteColor()
+    imageView.delegate = self
+    imageView.tag = index
+    switch search.state {
+    case .Results(let list):
+      scrollView.addSubview(imageView)
+      imageView.translatesAutoresizingMaskIntoConstraints = false
+      imageView.leadingAnchor.constraintEqualToAnchor(scrollView.leadingAnchor, constant: 20 + (78 * CGFloat(index))).active = true
+      imageView.topAnchor.constraintEqualToAnchor(scrollView.topAnchor,constant: 20).active = true
+      imageView.heightAnchor.constraintEqualToConstant(80).active = true
+      imageView.widthAnchor.constraintEqualToConstant(58).active = true
+      
+      let spinner = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+      spinner.translatesAutoresizingMaskIntoConstraints = false
+      imageView.addSubview(spinner)
+      spinner.centerXAnchor.constraintEqualToAnchor(imageView.centerXAnchor).active = true
+      spinner.centerYAnchor.constraintEqualToAnchor(imageView.centerYAnchor).active = true
+      spinner.tag = 1000
+      spinner.startAnimating()
+      
+      search.downloadImageWithUrl(list[index]) { success in
+        guard success != false else {
+          print("Couldn't download Images")
+          return
+        }
+        imageView.viewWithTag(1000)?.removeFromSuperview()
+        
+        
+        switch self.search.imageRequestState {
+        case .Results(let image):
+          imageView.image = image
+        default:
+          print("Shouldn't get here")
+        }
+        
+        imageView.layer.borderWidth = 1.0
+        imageView.layer.borderColor = UIColor.blackColor().CGColor
+        imageView.layer.shadowOffset = CGSize.zero
+        imageView.layer.shadowOpacity = 0.5
+        imageView.layer.shadowRadius = 4.0
+        
+        self.bookImageViews.append(imageView)
+      }
+      
+    default:
+      print("Default")
+      break
+    }
+    
+    
+  }
+  
   func reloadImageViews() {
     guard let scrollView = scrollView else { return }
-    delegate?.setImageAtIndex(self, scrollView: scrollView, images: bookImageViews)
+    
+    switch search.state {
+    case .NoResults:
+      print("No Results")
+    case .Results(let list):
+      numberOfImages = list.count
+      scrollView.contentSize.width = (20 + (78 * CGFloat(numberOfImages)))
+      
+      for i in 0...numberOfImages - 1 {
+        loadImageViewIndex(scrollView, viewWithIndex: i)
+        
+      }
+      
+    default:
+      print("Either Loading or not Searched yet")
+    }
+  }
+  
+  private func showSpinner(view: UIView) -> UIActivityIndicatorView {
+    
+    let spinner = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+    spinner.center = CGPoint(x: CGRectGetMidX(view.bounds) + 0.5, y: CGRectGetMidY(view.bounds) + 0.5)
+    spinner.tag = 1000
+    view.addSubview(spinner)
+    spinner.startAnimating()
+    
+    return spinner
+    
   }
     
     func tapped() {
@@ -153,14 +225,10 @@ class BookmarkImagePickerVC: UIViewController {
 
 protocol BookmarkImagePickerDelegate: class {
     var topAnchor: NSLayoutConstraint? { get set }
-    func setImageAtIndex(view: BookmarkImagePickerVC, scrollView: UIScrollView, images: [BookMarkArtIV])
+    //func setImageAtIndex(view: BookmarkImagePickerVC, scrollView: UIScrollView, images: [BookMarkArtIV])
     func bookmarkImagePickerDidAppear(picker: BookmarkImagePickerVC)
     func bookmarkImagePickerDidDisappear(picker: BookmarkImagePickerVC)
     func imageWasSelectedWithTag(view: BookMarkArtIVDelegate, image: BookMarkArtIV)
-}
-
-protocol BookmarkImagePickerDataSource: class {
-    func numberOfImagesToDisplay(scrollView: UIScrollView) -> Int
 }
 
 extension BookmarkImagePickerVC: BookMarkArtIVDelegate {
