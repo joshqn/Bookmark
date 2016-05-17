@@ -47,6 +47,7 @@ class NewBookMarkViewController: UIViewController {
       view.backgroundColor = UIColor.whiteColor()
       
       navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: #selector(cancel))
+      navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor()
       navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .Done, target: self, action: #selector(done))
 
       automaticallyAdjustsScrollViewInsets = false
@@ -82,6 +83,15 @@ class NewBookMarkViewController: UIViewController {
       self.view.layoutSubviews()
 
     }
+  
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    let navBar = self.navigationController?.navigationBar
+    
+    navBar?.barStyle = .Black
+    navBar?.barTintColor = StyleKit.mainTintColor
+    navBar?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor() ]
+  }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -197,11 +207,10 @@ class NewBookMarkViewController: UIViewController {
   //Updates the Done buttons appear according to if the length of characters in the book name text field is greater than 0
   func updateDoneButton(forCharCount length: Int) {
     if length == 0 {
-      navigationItem.rightBarButtonItem?.tintColor = UIColor.lightGrayColor()
       navigationItem.rightBarButtonItem?.enabled = false
       addPhotoButton.enabled = false
     } else {
-      navigationItem.rightBarButtonItem?.tintColor = view.tintColor
+      navigationItem.rightBarButtonItem?.tintColor = UIColor.whiteColor()
       navigationItem.rightBarButtonItem?.enabled = true
       addPhotoButton.enabled = true 
     }
@@ -225,7 +234,7 @@ class NewBookMarkViewController: UIViewController {
   func save(bookmark: BookMark?, context: NSManagedObjectContext?, artworkImage: BookMarkArtIV, delegate: NewBookMarkCreationDelegate?) {
     guard let context = context, let delegate = delegate else { return }
     guard let bookmark = bookmark != nil ? bookmark : NSEntityDescription.insertNewObjectForEntityForName("BookMark", inManagedObjectContext: context) as? BookMark else { return }
-    if artworkImage.image == StyleKit.imageOfBmArtPlaceHolder {
+    if artworkImage.image == StyleKit.imageOfCanvas1 {
       bookmark.photoData = nil
     } else {
       let photoData = UIImagePNGRepresentation(artworkImage.image!)

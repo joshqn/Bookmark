@@ -30,6 +30,7 @@ class BookMarksTableViewCell: UITableViewCell {
     bookArtwork.layer.borderColor = UIColor.blackColor().CGColor
     bookArtwork.layer.borderWidth = 1.0
     bookmarkButton.setImage(StyleKit.imageOfBookmarkid, forState: .Normal)
+    bookmarkButton.setImage(StyleKit.imageOfBookmarkidSelected, forState: .Selected)
     
     let labels = [bookArtwork,nameLabel,dateLabel,pageLabel,bookmarkButton]
     
@@ -52,7 +53,8 @@ class BookMarksTableViewCell: UITableViewCell {
       dateLabel.topAnchor.constraintEqualToAnchor(nameLabel.bottomAnchor,constant: 5),
       dateLabel.leadingAnchor.constraintEqualToAnchor(nameLabel.leadingAnchor),
       pageLabel.trailingAnchor.constraintEqualToAnchor(bookmarkButton.leadingAnchor,constant: -5),
-      pageLabel.centerYAnchor.constraintEqualToAnchor(self.centerYAnchor)
+      pageLabel.centerYAnchor.constraintEqualToAnchor(self.centerYAnchor),
+      
       
     ]
     

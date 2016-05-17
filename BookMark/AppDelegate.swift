@@ -19,6 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let bookVC = BookMarksViewController()
     let navVC = UINavigationController(rootViewController: bookVC)
+    let navBar = navVC.navigationBar
+    
+    navBar.barStyle = .Black
+    navBar.barTintColor = StyleKit.mainTintColor
+    navBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor() ]
+    
     
     window?.rootViewController = navVC
     

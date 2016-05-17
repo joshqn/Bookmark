@@ -13,7 +13,7 @@ class BookMarksViewController: UIViewController, TableViewFetchedResultsDisplaye
   
   var context: NSManagedObjectContext?
   private var fetchedResultsController:NSFetchedResultsController?
-  private let tableView = UITableView(frame: CGRect.zero,style: .Plain)
+  private let tableView = UITableView(frame: CGRect.zero,style: .Grouped)
   private let cellIdentifier = "BookMarkCell"
   private var fetchedResultsDelegate: NSFetchedResultsControllerDelegate?
   private let cellHeight:CGFloat = 80
@@ -24,8 +24,12 @@ class BookMarksViewController: UIViewController, TableViewFetchedResultsDisplaye
       title = "Book Marks"
       
       navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addBarButtonItemPressed(_:)))
+      navigationItem.rightBarButtonItem?.tintColor = UIColor.whiteColor()
+      navigationItem.leftBarButtonItem = UIBarButtonItem(image: StyleKit.imageOfSettingsButtonImage, style: .Plain, target: self, action: #selector(settingsButtonTapped(_:)))
       
       automaticallyAdjustsScrollViewInsets = false
+      
+      
       
       tableView.registerClass(BookMarksTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
       
@@ -57,11 +61,18 @@ class BookMarksViewController: UIViewController, TableViewFetchedResultsDisplaye
         // Dispose of any resources that can be recreated.
     }
   
-  func addBarButtonItemPressed(buttion: UIBarButtonItem) {
+  func addBarButtonItemPressed(button: UIBarButtonItem) {
     let newBooksVC = NewBookMarkViewController()
     newBooksVC.delegate = self
     newBooksVC.context = context
     let navVC = UINavigationController(rootViewController: newBooksVC)
+    presentViewController(navVC, animated: true, completion: nil)
+  }
+  
+  func settingsButtonTapped(button: UIBarButtonItem) {
+    let settingsVC = SettingsViewController()
+    settingsVC.context = context
+    let navVC = UINavigationController(rootViewController: settingsVC)
     presentViewController(navVC, animated: true, completion: nil)
   }
   
@@ -98,6 +109,7 @@ extension BookMarksViewController: UITableViewDelegate {
     newBooksVC.context = context
     newBooksVC.bookmark = bookMark
     let navVC = UINavigationController(rootViewController: newBooksVC)
+    let navBar = navVC.navigationBar
     presentViewController(navVC, animated: true, completion: nil)
     tableView.deselectRowAtIndexPath(indexPath, animated: true)
   }
@@ -144,8 +156,10 @@ extension BookMarksViewController: UITableViewDataSource {
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! BookMarksTableViewCell
     configureCell(cell, atIndexPath: indexPath)
+    
     return cell 
   }
+
 }
 
 extension BookMarksViewController: NewBookMarkCreationDelegate {
