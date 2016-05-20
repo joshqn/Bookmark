@@ -17,6 +17,8 @@ class BookMarksViewController: UIViewController, TableViewFetchedResultsDisplaye
   private let cellIdentifier = "BookMarkCell"
   private var fetchedResultsDelegate: NSFetchedResultsControllerDelegate?
   private let cellHeight:CGFloat = 80
+  private let dateFormatter = NSDateFormatter()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,7 +80,6 @@ class BookMarksViewController: UIViewController, TableViewFetchedResultsDisplaye
   
   func configureCell(cell:UITableViewCell, atIndexPath:NSIndexPath) {
     let cell = cell as! BookMarksTableViewCell
-    let dateFormatter = NSDateFormatter()
     dateFormatter.dateStyle = .MediumStyle
     dateFormatter.timeStyle = .NoStyle
     guard let bookMark = fetchedResultsController?.objectAtIndexPath(atIndexPath) as? BookMark else { return }
@@ -100,6 +101,7 @@ class BookMarksViewController: UIViewController, TableViewFetchedResultsDisplaye
 
 }
 
+//MARK: UITableViewDelegate
 extension BookMarksViewController: UITableViewDelegate {
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -109,7 +111,6 @@ extension BookMarksViewController: UITableViewDelegate {
     newBooksVC.context = context
     newBooksVC.bookmark = bookMark
     let navVC = UINavigationController(rootViewController: newBooksVC)
-    let navBar = navVC.navigationBar
     presentViewController(navVC, animated: true, completion: nil)
     tableView.deselectRowAtIndexPath(indexPath, animated: true)
   }
@@ -141,6 +142,7 @@ extension BookMarksViewController: UITableViewDelegate {
   }
 }
 
+//MARK: UITableViewDataSource
 extension BookMarksViewController: UITableViewDataSource {
   
   func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -155,6 +157,7 @@ extension BookMarksViewController: UITableViewDataSource {
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! BookMarksTableViewCell
+    cell.delegate = self
     configureCell(cell, atIndexPath: indexPath)
     
     return cell 
@@ -162,9 +165,38 @@ extension BookMarksViewController: UITableViewDataSource {
 
 }
 
+//MARK: NewBookMarkCreationDelegate
 extension BookMarksViewController: NewBookMarkCreationDelegate {
   func newBookCreated(view: NewBookMarkViewController) {
     tableView.reloadData()
+  }
+}
+
+//MARK: BookMarksTableViewCellDelegate
+extension BookMarksViewController: BookMarksTableViewCellDelegate {
+  func didPressButtonForCell(cell: BookMarksTableViewCell) {
+    let pagePickerVC = PagePickerViewController(nibName: nil, bundle: nil)
+    pagePickerVC.delegate = self
+    pagePickerVC.cell = cell
+    presentViewController(pagePickerVC, animated: true, completion: nil)
+  }
+}
+
+//MARK: PagePickerVCDelegate
+extension BookMarksViewController: PagePickerVCDelegate {
+  func didPickNewPageWithNumber(pagePickerVC: PagePickerViewController, page: Int) {
+    guard let cell = pagePickerVC.cell, let indexPath = tableView.indexPathForCell(cell) else {return}
+    guard let bookmarkCell = tableView.cellForRowAtIndexPath(indexPath) as? BookMarksTableViewCell else { return}
+    bookmarkCell.pageLabel.text = "\(page)"
+    
+    guard let bookMark = self.fetchedResultsController?.objectAtIndexPath(indexPath) as? BookMark, let context = self.context else { return }
+    bookMark.page = page
+    do {
+      try context.save()
+    } catch {
+      print("Could not save BookMark page")
+    }
+    
   }
 }
 

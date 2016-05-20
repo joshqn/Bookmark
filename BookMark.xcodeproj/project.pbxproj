@@ -26,6 +26,11 @@
 		918DDB541CDC1AEA006204AC /* BookMarkArtIV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918DDB531CDC1AEA006204AC /* BookMarkArtIV.swift */; };
 		919F9BE01CDE86EC00D7B6A8 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919F9BDF1CDE86EC00D7B6A8 /* Search.swift */; };
 		B07777891CEAA02B00C10167 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07777881CEAA02B00C10167 /* SettingsViewController.swift */; };
+		B0FDE4021CEE1CB900C48EDF /* PagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FDE4011CEE1CB900C48EDF /* PagePickerViewController.swift */; };
+		B0FDE4041CEE222900C48EDF /* DimmingPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FDE4031CEE222900C48EDF /* DimmingPresentationController.swift */; };
+		B0FDE4061CEE246F00C48EDF /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FDE4051CEE246F00C48EDF /* GradientView.swift */; };
+		B0FDE4081CEE260D00C48EDF /* BouneAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FDE4071CEE260D00C48EDF /* BouneAnimationController.swift */; };
+		B0FDE40A1CEE291900C48EDF /* SlideOutAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FDE4091CEE291900C48EDF /* SlideOutAnimationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +57,11 @@
 		919F9BDF1CDE86EC00D7B6A8 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		AD9DE4B9DBE27A8EB77AD3C1 /* Pods-BookMark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookMark.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BookMark/Pods-BookMark.debug.xcconfig"; sourceTree = "<group>"; };
 		B07777881CEAA02B00C10167 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		B0FDE4011CEE1CB900C48EDF /* PagePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagePickerViewController.swift; sourceTree = "<group>"; };
+		B0FDE4031CEE222900C48EDF /* DimmingPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DimmingPresentationController.swift; sourceTree = "<group>"; };
+		B0FDE4051CEE246F00C48EDF /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		B0FDE4071CEE260D00C48EDF /* BouneAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BouneAnimationController.swift; sourceTree = "<group>"; };
+		B0FDE4091CEE291900C48EDF /* SlideOutAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideOutAnimationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +114,7 @@
 				B08A6E561CE40E0F000E6ECC /* Search */,
 				918D386D1CD9614500C32FB3 /* Protcols */,
 				918D386E1CD9616000C32FB3 /* Helpers */,
+				B0FDE40B1CEE2A1900C48EDF /* PagePickerVC */,
 				919F9BDE1CDE86A500D7B6A8 /* StyleKit */,
 				918D38601CD93E3500C32FB3 /* Model.xcdatamodeld */,
 				918D384C1CD93AEE00C32FB3 /* Main.storyboard */,
@@ -197,6 +208,18 @@
 				918D38661CD9501B00C32FB3 /* BookMark.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		B0FDE40B1CEE2A1900C48EDF /* PagePickerVC */ = {
+			isa = PBXGroup;
+			children = (
+				B0FDE4011CEE1CB900C48EDF /* PagePickerViewController.swift */,
+				B0FDE4031CEE222900C48EDF /* DimmingPresentationController.swift */,
+				B0FDE4051CEE246F00C48EDF /* GradientView.swift */,
+				B0FDE4071CEE260D00C48EDF /* BouneAnimationController.swift */,
+				B0FDE4091CEE291900C48EDF /* SlideOutAnimationController.swift */,
+			);
+			name = PagePickerVC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -324,10 +347,14 @@
 			files = (
 				918DDB541CDC1AEA006204AC /* BookMarkArtIV.swift in Sources */,
 				918D385F1CD93D7E00C32FB3 /* UIViewController+FillWithView.swift in Sources */,
+				B0FDE4081CEE260D00C48EDF /* BouneAnimationController.swift in Sources */,
 				918D38491CD93AEE00C32FB3 /* AppDelegate.swift in Sources */,
+				B0FDE4041CEE222900C48EDF /* DimmingPresentationController.swift in Sources */,
+				B0FDE4021CEE1CB900C48EDF /* PagePickerViewController.swift in Sources */,
 				9170B34B1CDC2FD200CB2FE1 /* StyleKit.swift in Sources */,
 				912231D81CDBC53200B46709 /* BookmarkImagePickerVC.swift in Sources */,
 				918D38621CD93E3500C32FB3 /* Model.xcdatamodeld in Sources */,
+				B0FDE4061CEE246F00C48EDF /* GradientView.swift in Sources */,
 				918D386A1CD95AFB00C32FB3 /* TableViewFetchedResultsDelegate.swift in Sources */,
 				918D38641CD93F1200C32FB3 /* NewBookMarkViewController.swift in Sources */,
 				B07777891CEAA02B00C10167 /* SettingsViewController.swift in Sources */,
@@ -337,6 +364,7 @@
 				918D38681CD9501B00C32FB3 /* BookMark.swift in Sources */,
 				918D386C1CD95F3700C32FB3 /* BookMarksTableViewCell.swift in Sources */,
 				919F9BE01CDE86EC00D7B6A8 /* Search.swift in Sources */,
+				B0FDE40A1CEE291900C48EDF /* SlideOutAnimationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

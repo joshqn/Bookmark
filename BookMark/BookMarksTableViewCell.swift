@@ -9,12 +9,19 @@
 import UIKit
 
 class BookMarksTableViewCell: UITableViewCell {
+  
+  lazy var formatter: NSNumberFormatter = {
+    var formatter = NSNumberFormatter()
+    return formatter
+  }()
 
+  var page = 0
   let nameLabel = UILabel()
   let dateLabel = UILabel()
   let pageLabel = UILabel()
   var bookArtwork = UIImageView()
   var bookmarkButton = UIButton()
+  weak var delegate: BookMarksTableViewCellDelegate?
   
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -31,6 +38,7 @@ class BookMarksTableViewCell: UITableViewCell {
     bookArtwork.layer.borderWidth = 1.0
     bookmarkButton.setImage(StyleKit.imageOfBookmarkid, forState: .Normal)
     bookmarkButton.setImage(StyleKit.imageOfBookmarkidSelected, forState: .Selected)
+    bookmarkButton.addTarget(self, action: #selector(buttonTapped), forControlEvents: .TouchUpInside)
     
     let labels = [bookArtwork,nameLabel,dateLabel,pageLabel,bookmarkButton]
     
@@ -67,4 +75,14 @@ class BookMarksTableViewCell: UITableViewCell {
     fatalError("init(coder:) has not been implemented")
   }
   
+  
+  func buttonTapped() {
+    page = Int(formatter.numberFromString(self.pageLabel.text ?? "0") ?? 0)
+    delegate?.didPressButtonForCell(self)
+  }
+  
+}
+
+protocol BookMarksTableViewCellDelegate: class {
+  func didPressButtonForCell(cell: BookMarksTableViewCell)
 }
