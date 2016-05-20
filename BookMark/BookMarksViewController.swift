@@ -31,7 +31,8 @@ class BookMarksViewController: UIViewController, TableViewFetchedResultsDisplaye
       
       automaticallyAdjustsScrollViewInsets = false
       
-      
+      dateFormatter.dateStyle = .MediumStyle
+      dateFormatter.timeStyle = .NoStyle
       
       tableView.registerClass(BookMarksTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
       
@@ -80,8 +81,6 @@ class BookMarksViewController: UIViewController, TableViewFetchedResultsDisplaye
   
   func configureCell(cell:UITableViewCell, atIndexPath:NSIndexPath) {
     let cell = cell as! BookMarksTableViewCell
-    dateFormatter.dateStyle = .MediumStyle
-    dateFormatter.timeStyle = .NoStyle
     guard let bookMark = fetchedResultsController?.objectAtIndexPath(atIndexPath) as? BookMark else { return }
     
     cell.nameLabel.text = bookMark.name ?? "Nil"
@@ -187,15 +186,18 @@ extension BookMarksViewController: PagePickerVCDelegate {
   func didPickNewPageWithNumber(pagePickerVC: PagePickerViewController, page: Int) {
     guard let cell = pagePickerVC.cell, let indexPath = tableView.indexPathForCell(cell) else {return}
     guard let bookmarkCell = tableView.cellForRowAtIndexPath(indexPath) as? BookMarksTableViewCell else { return}
-    bookmarkCell.pageLabel.text = "\(page)"
     
     guard let bookMark = self.fetchedResultsController?.objectAtIndexPath(indexPath) as? BookMark, let context = self.context else { return }
     bookMark.page = page
+    bookMark.lastBookMarkDate = NSDate()
     do {
       try context.save()
     } catch {
       print("Could not save BookMark page")
     }
+    
+    bookmarkCell.pageLabel.text = "\(page)"
+    bookmarkCell.dateLabel.text = dateFormatter.stringFromDate(bookMark.lastBookMarkDate ?? NSDate())
     
   }
 }
