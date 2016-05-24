@@ -10,12 +10,7 @@ import UIKit
 
 class PagePickerViewController: UIViewController {
   
-  let popUpView = UIView()
-  let saveButton = UIButton(type: .Custom)
-  let picker = UIPickerView()
-  let bookName = UITextField()
-  let numberOfPagesLabel = UILabel()
-  let numberOfPagesReadTextField = UITextField()
+  let popUpView = PopUpView()
   
   var cell: BookMarksTableViewCell? {
     didSet {
@@ -23,7 +18,7 @@ class PagePickerViewController: UIViewController {
       page = cell.page
       lastMarkedpage = page
       selectedNumber = page
-      bookName.text = cell.nameLabel.text
+      popUpView.bookName.text = cell.nameLabel.text
     }
   }
   
@@ -72,50 +67,17 @@ class PagePickerViewController: UIViewController {
       popUpView.widthAnchor.constraintEqualToConstant(260).active = true
       popUpView.heightAnchor.constraintEqualToConstant(280).active = true
       
-      saveButton.setImage(StyleKit.imageOfBookmarkid, forState: .Normal)
-      saveButton.addTarget(self, action: #selector(close), forControlEvents: .TouchUpInside)
-      
-      popUpView.addSubview(saveButton)
-      saveButton.translatesAutoresizingMaskIntoConstraints = false
-      saveButton.trailingAnchor.constraintEqualToAnchor(self.popUpView.trailingAnchor, constant: -15).active = true
-      saveButton.topAnchor.constraintEqualToAnchor(self.popUpView.topAnchor, constant: 10).active = true
-      saveButton.setContentHuggingPriority(999, forAxis: .Horizontal)
-      saveButton.setContentCompressionResistancePriority(999, forAxis: .Horizontal)
-      
-      popUpView.addSubview(picker)
-      picker.dataSource = self
-      picker.delegate = self
-      picker.selectRow(page, inComponent: 0, animated: false)
-      picker.translatesAutoresizingMaskIntoConstraints = false
-      picker.topAnchor.constraintEqualToAnchor(saveButton.bottomAnchor).active = true
-      picker.leadingAnchor.constraintEqualToAnchor(popUpView.leadingAnchor,constant: 15).active = true
-      picker.bottomAnchor.constraintEqualToAnchor(popUpView.bottomAnchor, constant: 0).active = true
-      picker.trailingAnchor.constraintEqualToAnchor(popUpView.trailingAnchor, constant: -15).active = true
-      
-      popUpView.addSubview(bookName)
-      bookName.font = UIFont.systemFontOfSize(20, weight: UIFontWeightMedium)
-      bookName.translatesAutoresizingMaskIntoConstraints = false
-      bookName.leadingAnchor.constraintEqualToAnchor(self.popUpView.leadingAnchor,constant: 15).active = true
-      bookName.topAnchor.constraintEqualToAnchor(self.popUpView.topAnchor, constant: 20).active = true
-      bookName.trailingAnchor.constraintEqualToAnchor(saveButton.leadingAnchor, constant: -5).active = true
-      
-      popUpView.addSubview(numberOfPagesLabel)
-      numberOfPagesLabel.font = UIFont.systemFontOfSize(18, weight: UIFontWeightThin)
-      numberOfPagesLabel.text = "Pages Read:"
-      numberOfPagesLabel.translatesAutoresizingMaskIntoConstraints = false
-      numberOfPagesLabel.leadingAnchor.constraintEqualToAnchor(self.popUpView.leadingAnchor,constant: 15).active = true
-      numberOfPagesLabel.topAnchor.constraintEqualToAnchor(self.bookName.bottomAnchor, constant: 3).active = true
-      
-      popUpView.addSubview(numberOfPagesReadTextField)
-      numberOfPagesReadTextField.font = UIFont.systemFontOfSize(18, weight: UIFontWeightThin)
-      numberOfPagesReadTextField.translatesAutoresizingMaskIntoConstraints = false
-      numberOfPagesReadTextField.text = "\(pagesRead)"
-      numberOfPagesReadTextField.leadingAnchor.constraintEqualToAnchor(self.numberOfPagesLabel.trailingAnchor,constant: 5).active = true
-      numberOfPagesReadTextField.topAnchor.constraintEqualToAnchor(self.bookName.bottomAnchor, constant: 3).active = true
-      numberOfPagesReadTextField.trailingAnchor.constraintEqualToAnchor(saveButton.leadingAnchor, constant: -5).active = true
-      
+      popUpView.saveButton.addTarget(self, action: #selector(close), forControlEvents: .TouchUpInside)
+
+      popUpView.picker.dataSource = self
+      popUpView.picker.delegate = self
+      popUpView.picker.selectRow(page, inComponent: 0, animated: false)
+
+      popUpView.numberOfPagesReadTextField.text = "\(pagesRead)"
       
     }
+  
+  
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -132,7 +94,7 @@ class PagePickerViewController: UIViewController {
   }
   
   func updateUI() {
-    numberOfPagesReadTextField.text = "\(pagesRead)"
+    popUpView.numberOfPagesReadTextField.text = "\(pagesRead)"
   }
 
 }
