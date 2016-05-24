@@ -255,16 +255,16 @@ class NewBookMarkViewController: UIViewController {
   }
   
   func EditButtonTapped(button: UIButton) {
-    topAnchor?.priority = 249
+    
     bookMarkImagePickerVC?.turnOnNotifications()
     guard let textField = self.bookNameTextField.isFirstResponder() || self.pageTextField.isFirstResponder() == true ? self.bookNameTextField.text : self.searchBar.text else { return }
     self.bookMarkImagePickerVC?.performSearchWithText(textField)
     
     let optionMenu = UIAlertController(title: "Edit Photo", message: "Take a Picture or Search for One", preferredStyle: .ActionSheet)
     let searchAction = UIAlertAction(title: "Search", style: .Default) { (action) in
+      self.topAnchor?.priority = 249
+      self.bookMarkImagePickerVC?.turnOnNotifications()
       NSLayoutConstraint.activateConstraints(self.searchBarConstraints)
-    
-
       self.searchBar.text = self.bookNameTextField.text
       UIView.animateWithDuration(0.33, animations: {
         self.view.layoutIfNeeded()
@@ -279,7 +279,10 @@ class NewBookMarkViewController: UIViewController {
       print("Take Photo")
     }
     
-    let cancelButton = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+    let cancelButton = UIAlertAction(title: "Cancel", style: .Cancel) { (action) in
+      self.topAnchor?.priority = 999
+      print("Cancel")
+    }
     
     optionMenu.addAction(searchAction)
     optionMenu.addAction(takePhotoAction)
