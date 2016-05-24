@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class BookMarksViewController: UIViewController, TableViewFetchedResultsDisplayer {
+class BookMarksViewController: UIViewController, TableViewFetchedResultsDisplayer, ContextViewController {
   
   var context: NSManagedObjectContext?
   private var fetchedResultsController:NSFetchedResultsController?
@@ -23,7 +23,8 @@ class BookMarksViewController: UIViewController, TableViewFetchedResultsDisplaye
     override func viewDidLoad() {
         super.viewDidLoad()
       
-      title = "Book Marks"
+      
+      navigationController?.navigationBar.topItem?.title = "Bookmarks"
       
       navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addBarButtonItemPressed(_:)))
       navigationItem.rightBarButtonItem?.tintColor = UIColor.whiteColor()

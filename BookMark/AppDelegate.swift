@@ -17,21 +17,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     
-    let bookVC = BookMarksViewController()
-    let navVC = UINavigationController(rootViewController: bookVC)
-    let navBar = navVC.navigationBar
-    
-    navBar.barStyle = .Black
-    navBar.barTintColor = StyleKit.mainTintColor
-    navBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor() ]
-    
-    
-    window?.rootViewController = navVC
-    
     let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
     context.persistentStoreCoordinator = CDHelper.sharedInstance.coordinator
     
-    bookVC.context = context
+    let tabController = UITabBarController()
+    let vcData: [(UIViewController,UIImage,UIImage, String)] = [
+      (BookMarksViewController(), StyleKit.imageOfTabBarBMImageFlat, StyleKit.imageOfTabBarBMSelectedBMImage, "Bookmarks"),
+      (ArchiveViewController(),StyleKit.imageOfTabBarArchiveImageFlat, StyleKit.imageOfTabBarArchiveSelectedImage, "Archive")
+    ]
+    
+    let vcs = vcData.map { (vc: UIViewController, image: UIImage, selectedImage: UIImage, title: String) -> UINavigationController in
+      if var vc = vc as? ContextViewController {
+        vc.context = context
+      }
+      let nav = UINavigationController(rootViewController: vc)
+      //nav.navigationBar.barStyle = .Black
+      nav.navigationBar.tintColor = UIColor.darkGrayColor()
+      //nav.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+      
+      nav.tabBarItem.image = image
+      nav.tabBarItem.selectedImage = selectedImage
+      nav.title = title
+      return nav
+    }
+    
+    tabController.viewControllers = vcs
+    //tabController.tabBar.barStyle = .Default
+    tabController.tabBar.tintColor = StyleKit.mainTintColor
+    //tabController.tabBar.barTintColor = StyleKit.mainTintColor
+    window?.rootViewController = tabController
     
     return true
   }
