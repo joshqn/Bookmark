@@ -47,7 +47,7 @@ class NewBookMarkViewController: UIViewController {
       view.backgroundColor = UIColor.whiteColor()
       
       navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: #selector(cancel))
-      navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor()
+      navigationItem.leftBarButtonItem?.tintColor = UIColor.darkGrayColor()
       navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .Done, target: self, action: #selector(done))
 
       automaticallyAdjustsScrollViewInsets = false
@@ -62,7 +62,7 @@ class NewBookMarkViewController: UIViewController {
       
       if bookmark == nil {
         title = "New Book Mark"
-        artworkImage.image = UIImage(named: "AddArtworkPH")
+        artworkImage.image = StyleKit.imageOfBlankImageArtwork
         bookNameTextField.becomeFirstResponder()
         updateDoneButton(forCharCount: 0)
       } else {
@@ -76,22 +76,13 @@ class NewBookMarkViewController: UIViewController {
         
       }
       
-      dressUpImageLayer(artworkImage.layer)
+      //dressUpImageLayer(artworkImage.layer)
       
       createUI()
       createAndAddConstraints()
       self.view.layoutSubviews()
 
     }
-  
-  override func viewWillAppear(animated: Bool) {
-    super.viewWillAppear(animated)
-    let navBar = self.navigationController?.navigationBar
-    
-    navBar?.barStyle = .Black
-    navBar?.barTintColor = StyleKit.mainTintColor
-    navBar?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor() ]
-  }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -210,7 +201,6 @@ class NewBookMarkViewController: UIViewController {
       navigationItem.rightBarButtonItem?.enabled = false
       addPhotoButton.enabled = false
     } else {
-      navigationItem.rightBarButtonItem?.tintColor = UIColor.whiteColor()
       navigationItem.rightBarButtonItem?.enabled = true
       addPhotoButton.enabled = true 
     }
@@ -293,9 +283,6 @@ class NewBookMarkViewController: UIViewController {
   }
   
   func dressUpImageLayer(layer: CALayer) {
-    layer.shadowRadius = 4.0
-    layer.shadowOffset = CGSize.zero
-    layer.shadowOpacity = 0.5
     layer.borderColor = UIColor.blackColor().CGColor
     layer.borderWidth = 1.0
   }

@@ -31,9 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         vc.context = context
       }
       let nav = UINavigationController(rootViewController: vc)
-      //nav.navigationBar.barStyle = .Black
       nav.navigationBar.tintColor = UIColor.darkGrayColor()
-      //nav.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
       
       nav.tabBarItem.image = image
       nav.tabBarItem.selectedImage = selectedImage
@@ -42,9 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     tabController.viewControllers = vcs
-    //tabController.tabBar.barStyle = .Default
     tabController.tabBar.tintColor = StyleKit.mainTintColor
-    //tabController.tabBar.barTintColor = StyleKit.mainTintColor
     window?.rootViewController = tabController
     
     return true

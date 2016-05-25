@@ -27,8 +27,7 @@ class BookMarksViewController: UIViewController, TableViewFetchedResultsDisplaye
       navigationController?.navigationBar.topItem?.title = "Bookmarks"
       
       navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addBarButtonItemPressed(_:)))
-      navigationItem.rightBarButtonItem?.tintColor = UIColor.whiteColor()
-      navigationItem.leftBarButtonItem = UIBarButtonItem(image: StyleKit.imageOfSettingsButtonImage, style: .Plain, target: self, action: #selector(settingsButtonTapped(_:)))
+      navigationItem.leftBarButtonItem = UIBarButtonItem(image: StyleKit.imageOfNavBarCogButtonImageFlat, style: .Plain, target: self, action: #selector(settingsButtonTapped(_:)))
       
       automaticallyAdjustsScrollViewInsets = false
       
@@ -93,9 +92,9 @@ class BookMarksViewController: UIViewController, TableViewFetchedResultsDisplaye
       cell.bookArtwork.layer.borderColor = UIColor.clearColor().CGColor
     } else {
       cell.bookArtwork.image = bookMark.bookImage
-      cell.bookArtwork.layer.shadowRadius = 4.0
-      cell.bookArtwork.layer.shadowOpacity = 0.5
-      cell.bookArtwork.layer.shadowOffset = CGSize.zero
+      //cell.bookArtwork.layer.shadowRadius = 4.0
+      //cell.bookArtwork.layer.shadowOpacity = 0.5
+      //cell.bookArtwork.layer.shadowOffset = CGSize.zero
     }
   }
 
@@ -187,7 +186,6 @@ extension BookMarksViewController: PagePickerVCDelegate {
   func didPickNewPageWithNumber(pagePickerVC: PagePickerViewController, page: Int) {
     guard let cell = pagePickerVC.cell, let indexPath = tableView.indexPathForCell(cell) else {return}
     guard let bookmarkCell = tableView.cellForRowAtIndexPath(indexPath) as? BookMarksTableViewCell else { return}
-    
     guard let bookMark = self.fetchedResultsController?.objectAtIndexPath(indexPath) as? BookMark, let context = self.context else { return }
     bookMark.page = page
     bookMark.lastBookMarkDate = NSDate()

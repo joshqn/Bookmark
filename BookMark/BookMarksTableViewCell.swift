@@ -31,13 +31,13 @@ class BookMarksTableViewCell: UITableViewCell {
     nameLabel.setContentCompressionResistancePriority(249, forAxis: .Horizontal)
     dateLabel.textColor = .grayColor()
     dateLabel.font = UIFont.systemFontOfSize(16, weight: UIFontWeightMedium)
-    pageLabel.font = UIFont.systemFontOfSize(18, weight: UIFontWeightHeavy)
+    pageLabel.font = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
     pageLabel.setContentHuggingPriority(249, forAxis: .Horizontal)
     bookArtwork.backgroundColor = UIColor.clearColor()
     bookArtwork.layer.borderColor = UIColor.blackColor().CGColor
     bookArtwork.layer.borderWidth = 1.0
-    bookmarkButton.setImage(StyleKit.imageOfBookmarkid, forState: .Normal)
-    bookmarkButton.setImage(StyleKit.imageOfBookmarkidSelected, forState: .Selected)
+    bookmarkButton.setImage(StyleKit.imageOfTBCellButtonBMImageFlat, forState: .Normal)
+    
     bookmarkButton.addTarget(self, action: #selector(buttonTapped), forControlEvents: .TouchUpInside)
     
     let labels = [bookArtwork,nameLabel,dateLabel,pageLabel,bookmarkButton]
@@ -60,7 +60,7 @@ class BookMarksTableViewCell: UITableViewCell {
       nameLabel.trailingAnchor.constraintEqualToAnchor(pageLabel.leadingAnchor,constant: -2),
       dateLabel.topAnchor.constraintEqualToAnchor(nameLabel.bottomAnchor,constant: 5),
       dateLabel.leadingAnchor.constraintEqualToAnchor(nameLabel.leadingAnchor),
-      pageLabel.trailingAnchor.constraintEqualToAnchor(bookmarkButton.leadingAnchor,constant: -5),
+      pageLabel.trailingAnchor.constraintEqualToAnchor(bookmarkButton.leadingAnchor,constant: -10),
       pageLabel.centerYAnchor.constraintEqualToAnchor(self.centerYAnchor),
       
       

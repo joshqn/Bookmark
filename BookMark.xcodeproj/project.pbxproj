@@ -25,6 +25,8 @@
 		918D386C1CD95F3700C32FB3 /* BookMarksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D386B1CD95F3700C32FB3 /* BookMarksTableViewCell.swift */; };
 		918DDB541CDC1AEA006204AC /* BookMarkArtIV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918DDB531CDC1AEA006204AC /* BookMarkArtIV.swift */; };
 		919F9BE01CDE86EC00D7B6A8 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919F9BDF1CDE86EC00D7B6A8 /* Search.swift */; };
+		B05C12381CF4C6A8009E8578 /* ContextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C12371CF4C6A8009E8578 /* ContextViewController.swift */; };
+		B05C123A1CF4C9AA009E8578 /* ArchiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C12391CF4C9AA009E8578 /* ArchiveViewController.swift */; };
 		B07777891CEAA02B00C10167 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07777881CEAA02B00C10167 /* SettingsViewController.swift */; };
 		B0F717841CF398D5005C3955 /* PopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F717831CF398D5005C3955 /* PopUpView.swift */; };
 		B0FDE4021CEE1CB900C48EDF /* PagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FDE4011CEE1CB900C48EDF /* PagePickerViewController.swift */; };
@@ -57,6 +59,8 @@
 		918DDB531CDC1AEA006204AC /* BookMarkArtIV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookMarkArtIV.swift; sourceTree = "<group>"; };
 		919F9BDF1CDE86EC00D7B6A8 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		AD9DE4B9DBE27A8EB77AD3C1 /* Pods-BookMark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookMark.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BookMark/Pods-BookMark.debug.xcconfig"; sourceTree = "<group>"; };
+		B05C12371CF4C6A8009E8578 /* ContextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextViewController.swift; sourceTree = "<group>"; };
+		B05C12391CF4C9AA009E8578 /* ArchiveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiveViewController.swift; sourceTree = "<group>"; };
 		B07777881CEAA02B00C10167 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		B0F717831CF398D5005C3955 /* PopUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopUpView.swift; sourceTree = "<group>"; };
 		B0FDE4011CEE1CB900C48EDF /* PagePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagePickerViewController.swift; sourceTree = "<group>"; };
@@ -108,6 +112,7 @@
 		918D38471CD93AEE00C32FB3 /* BookMark */ = {
 			isa = PBXGroup;
 			children = (
+				B05C123B1CF4C9B2009E8578 /* ArchiveVC */,
 				B07777871CEAA00400C10167 /* SettingsVC */,
 				B08A6E571CE40E1D000E6ECC /* Model */,
 				918DDB521CDC1AB0006204AC /* BookmarkImagePickerVC */,
@@ -115,9 +120,9 @@
 				918D386F1CD9619400C32FB3 /* BookMarkVC */,
 				B08A6E561CE40E0F000E6ECC /* Search */,
 				918D386D1CD9614500C32FB3 /* Protcols */,
+				919F9BDE1CDE86A500D7B6A8 /* StyleKit */,
 				918D386E1CD9616000C32FB3 /* Helpers */,
 				B0FDE40B1CEE2A1900C48EDF /* PagePickerVC */,
-				919F9BDE1CDE86A500D7B6A8 /* StyleKit */,
 				918D38601CD93E3500C32FB3 /* Model.xcdatamodeld */,
 				918D384C1CD93AEE00C32FB3 /* Main.storyboard */,
 				918D384F1CD93AEE00C32FB3 /* Assets.xcassets */,
@@ -138,6 +143,7 @@
 		918D386E1CD9616000C32FB3 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				B05C12371CF4C6A8009E8578 /* ContextViewController.swift */,
 				918D38481CD93AEE00C32FB3 /* AppDelegate.swift */,
 				918D385E1CD93D7E00C32FB3 /* UIViewController+FillWithView.swift */,
 				918D385A1CD93B2300C32FB3 /* CDHelper.swift */,
@@ -185,6 +191,14 @@
 				79A71BA6FEC37190DCB6F2F8 /* Pods_BookMark.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B05C123B1CF4C9B2009E8578 /* ArchiveVC */ = {
+			isa = PBXGroup;
+			children = (
+				B05C12391CF4C9AA009E8578 /* ArchiveViewController.swift */,
+			);
+			name = ArchiveVC;
 			sourceTree = "<group>";
 		};
 		B07777871CEAA00400C10167 /* SettingsVC */ = {
@@ -350,6 +364,7 @@
 			files = (
 				B0F717841CF398D5005C3955 /* PopUpView.swift in Sources */,
 				918DDB541CDC1AEA006204AC /* BookMarkArtIV.swift in Sources */,
+				B05C12381CF4C6A8009E8578 /* ContextViewController.swift in Sources */,
 				918D385F1CD93D7E00C32FB3 /* UIViewController+FillWithView.swift in Sources */,
 				B0FDE4081CEE260D00C48EDF /* BouneAnimationController.swift in Sources */,
 				918D38491CD93AEE00C32FB3 /* AppDelegate.swift in Sources */,
@@ -360,6 +375,7 @@
 				918D38621CD93E3500C32FB3 /* Model.xcdatamodeld in Sources */,
 				B0FDE4061CEE246F00C48EDF /* GradientView.swift in Sources */,
 				918D386A1CD95AFB00C32FB3 /* TableViewFetchedResultsDelegate.swift in Sources */,
+				B05C123A1CF4C9AA009E8578 /* ArchiveViewController.swift in Sources */,
 				918D38641CD93F1200C32FB3 /* NewBookMarkViewController.swift in Sources */,
 				B07777891CEAA02B00C10167 /* SettingsViewController.swift in Sources */,
 				918D385B1CD93B2300C32FB3 /* CDHelper.swift in Sources */,

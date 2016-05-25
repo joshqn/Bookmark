@@ -23,9 +23,8 @@ class SettingsViewController: UIViewController,TableViewFetchedResultsDisplayer 
       view.backgroundColor = UIColor.whiteColor()
       
       navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: #selector(cancel))
-      navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor()
+      navigationItem.leftBarButtonItem?.tintColor = UIColor.darkGrayColor()
       navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .Done, target: self, action: #selector(done))
-      navigationItem.rightBarButtonItem?.tintColor = UIColor.whiteColor()
       
       automaticallyAdjustsScrollViewInsets = false
       
@@ -36,15 +35,6 @@ class SettingsViewController: UIViewController,TableViewFetchedResultsDisplayer 
       fillViewWith(tableView)
       
     }
-  
-  override func viewWillAppear(animated: Bool) {
-    super.viewWillAppear(animated)
-    let navBar = self.navigationController?.navigationBar
-    
-    navBar?.barStyle = .Black
-    navBar?.barTintColor = StyleKit.mainTintColor
-    navBar?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor() ]
-  }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
