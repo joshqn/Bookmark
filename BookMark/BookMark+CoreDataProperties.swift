@@ -2,7 +2,7 @@
 //  BookMark+CoreDataProperties.swift
 //  BookMark
 //
-//  Created by Joshua Kuehn on 5/5/16.
+//  Created by Joshua Kuehn on 5/25/16.
 //  Copyright © 2016 Joshua Kuehn. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -18,5 +18,6 @@ extension BookMark {
     @NSManaged var name: String?
     @NSManaged var page: NSNumber?
     @NSManaged var photoData: NSData?
+    @NSManaged var isArchived: NSNumber?
 
 }

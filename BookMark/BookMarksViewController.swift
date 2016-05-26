@@ -18,6 +18,11 @@ class BookMarksViewController: UIViewController, TableViewFetchedResultsDisplaye
   private var fetchedResultsDelegate: NSFetchedResultsControllerDelegate?
   private let cellHeight:CGFloat = 80
   private let dateFormatter = NSDateFormatter()
+  
+  lazy var isNotArchivedPredicate: NSPredicate = {
+    var predicate = NSPredicate(format: "isArchived == false")
+    return predicate
+  }()
 
 
     override func viewDidLoad() {
@@ -43,6 +48,7 @@ class BookMarksViewController: UIViewController, TableViewFetchedResultsDisplaye
       
       if let context = context {
         let request = NSFetchRequest(entityName: "BookMark")
+        request.predicate = isNotArchivedPredicate
         request.sortDescriptors = []
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         
@@ -133,7 +139,17 @@ extension BookMarksViewController: UITableViewDelegate {
     delete.backgroundColor = UIColor.redColor()
     
     let more = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Archive" , handler: { (action:UITableViewRowAction!, indexPath:NSIndexPath!) -> Void in
-      //Do something
+      guard let context = self.context, let bookMark = self.fetchedResultsController?.objectAtIndexPath(indexPath) as? BookMark else {return}
+      bookMark.isArchived = true
+      
+      do {
+        try context.save()
+      } catch {
+        print("ERROR: Couldn't update archived status")
+      }
+      
+      
+      
     })
     more.backgroundColor = UIColor(red: 255/255, green: 207/255, blue: 51/255, alpha: 1.0)
     

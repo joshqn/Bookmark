@@ -19,7 +19,6 @@
 		918D385F1CD93D7E00C32FB3 /* UIViewController+FillWithView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D385E1CD93D7E00C32FB3 /* UIViewController+FillWithView.swift */; };
 		918D38621CD93E3500C32FB3 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 918D38601CD93E3500C32FB3 /* Model.xcdatamodeld */; };
 		918D38641CD93F1200C32FB3 /* NewBookMarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D38631CD93F1200C32FB3 /* NewBookMarkViewController.swift */; };
-		918D38671CD9501B00C32FB3 /* BookMark+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D38651CD9501B00C32FB3 /* BookMark+CoreDataProperties.swift */; };
 		918D38681CD9501B00C32FB3 /* BookMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D38661CD9501B00C32FB3 /* BookMark.swift */; };
 		918D386A1CD95AFB00C32FB3 /* TableViewFetchedResultsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D38691CD95AFB00C32FB3 /* TableViewFetchedResultsDelegate.swift */; };
 		918D386C1CD95F3700C32FB3 /* BookMarksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D386B1CD95F3700C32FB3 /* BookMarksTableViewCell.swift */; };
@@ -27,6 +26,7 @@
 		919F9BE01CDE86EC00D7B6A8 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919F9BDF1CDE86EC00D7B6A8 /* Search.swift */; };
 		B05C12381CF4C6A8009E8578 /* ContextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C12371CF4C6A8009E8578 /* ContextViewController.swift */; };
 		B05C123A1CF4C9AA009E8578 /* ArchiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C12391CF4C9AA009E8578 /* ArchiveViewController.swift */; };
+		B07280AC1CF6787A001761C1 /* BookMark+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07280AB1CF6787A001761C1 /* BookMark+CoreDataProperties.swift */; };
 		B07777891CEAA02B00C10167 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07777881CEAA02B00C10167 /* SettingsViewController.swift */; };
 		B0F717841CF398D5005C3955 /* PopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F717831CF398D5005C3955 /* PopUpView.swift */; };
 		B0FDE4021CEE1CB900C48EDF /* PagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FDE4011CEE1CB900C48EDF /* PagePickerViewController.swift */; };
@@ -52,7 +52,6 @@
 		918D385E1CD93D7E00C32FB3 /* UIViewController+FillWithView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+FillWithView.swift"; sourceTree = "<group>"; };
 		918D38611CD93E3500C32FB3 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		918D38631CD93F1200C32FB3 /* NewBookMarkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = NewBookMarkViewController.swift; sourceTree = "<group>"; tabWidth = 2; };
-		918D38651CD9501B00C32FB3 /* BookMark+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BookMark+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		918D38661CD9501B00C32FB3 /* BookMark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookMark.swift; sourceTree = "<group>"; };
 		918D38691CD95AFB00C32FB3 /* TableViewFetchedResultsDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewFetchedResultsDelegate.swift; sourceTree = "<group>"; };
 		918D386B1CD95F3700C32FB3 /* BookMarksTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookMarksTableViewCell.swift; sourceTree = "<group>"; };
@@ -61,6 +60,7 @@
 		AD9DE4B9DBE27A8EB77AD3C1 /* Pods-BookMark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookMark.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BookMark/Pods-BookMark.debug.xcconfig"; sourceTree = "<group>"; };
 		B05C12371CF4C6A8009E8578 /* ContextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextViewController.swift; sourceTree = "<group>"; };
 		B05C12391CF4C9AA009E8578 /* ArchiveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiveViewController.swift; sourceTree = "<group>"; };
+		B07280AB1CF6787A001761C1 /* BookMark+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BookMark+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B07777881CEAA02B00C10167 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		B0F717831CF398D5005C3955 /* PopUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopUpView.swift; sourceTree = "<group>"; };
 		B0FDE4011CEE1CB900C48EDF /* PagePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagePickerViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +112,7 @@
 		918D38471CD93AEE00C32FB3 /* BookMark */ = {
 			isa = PBXGroup;
 			children = (
+				918D38481CD93AEE00C32FB3 /* AppDelegate.swift */,
 				B05C123B1CF4C9B2009E8578 /* ArchiveVC */,
 				B07777871CEAA00400C10167 /* SettingsVC */,
 				B08A6E571CE40E1D000E6ECC /* Model */,
@@ -144,7 +145,6 @@
 			isa = PBXGroup;
 			children = (
 				B05C12371CF4C6A8009E8578 /* ContextViewController.swift */,
-				918D38481CD93AEE00C32FB3 /* AppDelegate.swift */,
 				918D385E1CD93D7E00C32FB3 /* UIViewController+FillWithView.swift */,
 				918D385A1CD93B2300C32FB3 /* CDHelper.swift */,
 			);
@@ -220,7 +220,7 @@
 		B08A6E571CE40E1D000E6ECC /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				918D38651CD9501B00C32FB3 /* BookMark+CoreDataProperties.swift */,
+				B07280AB1CF6787A001761C1 /* BookMark+CoreDataProperties.swift */,
 				918D38661CD9501B00C32FB3 /* BookMark.swift */,
 			);
 			name = Model;
@@ -370,6 +370,7 @@
 				918D38491CD93AEE00C32FB3 /* AppDelegate.swift in Sources */,
 				B0FDE4041CEE222900C48EDF /* DimmingPresentationController.swift in Sources */,
 				B0FDE4021CEE1CB900C48EDF /* PagePickerViewController.swift in Sources */,
+				B07280AC1CF6787A001761C1 /* BookMark+CoreDataProperties.swift in Sources */,
 				9170B34B1CDC2FD200CB2FE1 /* StyleKit.swift in Sources */,
 				912231D81CDBC53200B46709 /* BookmarkImagePickerVC.swift in Sources */,
 				918D38621CD93E3500C32FB3 /* Model.xcdatamodeld in Sources */,
@@ -380,7 +381,6 @@
 				B07777891CEAA02B00C10167 /* SettingsViewController.swift in Sources */,
 				918D385B1CD93B2300C32FB3 /* CDHelper.swift in Sources */,
 				918D385D1CD93B5B00C32FB3 /* BookMarksViewController.swift in Sources */,
-				918D38671CD9501B00C32FB3 /* BookMark+CoreDataProperties.swift in Sources */,
 				918D38681CD9501B00C32FB3 /* BookMark.swift in Sources */,
 				918D386C1CD95F3700C32FB3 /* BookMarksTableViewCell.swift in Sources */,
 				919F9BE01CDE86EC00D7B6A8 /* Search.swift in Sources */,
