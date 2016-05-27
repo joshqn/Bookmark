@@ -14,6 +14,9 @@ class ArchiveViewController: UIViewController, ContextViewController, TableViewF
   var context: NSManagedObjectContext?
   private let tableView = UITableView(frame: CGRect.zero, style: .Grouped)
   private let cellIdentifier = "ArchiveCell"
+  private let cellHeight:CGFloat = 60
+  
+  private let dateFormatter = NSDateFormatter()
   
   private var fetchedResultsController: NSFetchedResultsController?
   private var fetchedResultsDelegate: NSFetchedResultsControllerDelegate?
@@ -22,23 +25,28 @@ class ArchiveViewController: UIViewController, ContextViewController, TableViewF
     var predicate = NSPredicate(format: "isArchived == true")
     return predicate
   }()
+  let authorSort = NSSortDescriptor(key: "author", ascending: true)
 
     override func viewDidLoad() {
         super.viewDidLoad()
       
       navigationController?.navigationBar.topItem?.title = "Archive"
       automaticallyAdjustsScrollViewInsets = false
-      tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+      tableView.rowHeight = cellHeight
+      tableView.registerClass(ArchiveTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
       tableView.dataSource = self
       tableView.delegate = self
       
       fillViewWith(tableView)
       
+      dateFormatter.dateStyle = .MediumStyle
+      dateFormatter.timeStyle = .NoStyle
+      
       if let context = context {
         let request = NSFetchRequest(entityName: "BookMark")
         request.predicate = isArchivedPredicate
-        request.sortDescriptors = []
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        request.sortDescriptors = [authorSort]
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: "author", cacheName: nil)
         
         fetchedResultsDelegate = TableViewFetchedResultsDelegate(tableView: tableView, displayer: self)
         fetchedResultsController?.delegate = fetchedResultsDelegate
@@ -59,8 +67,12 @@ class ArchiveViewController: UIViewController, ContextViewController, TableViewF
     }
   
   func configureCell(cell: UITableViewCell, atIndexPath: NSIndexPath) {
+    let cell = cell as! ArchiveTableViewCell
     guard let bookMark = fetchedResultsController?.objectAtIndexPath(atIndexPath) as? BookMark else { return }
-    cell.textLabel?.text = bookMark.name ?? "Nil"
+    cell.bookName.text = bookMark.name ?? "Nil"
+    cell.artwork.image = bookMark.bookImage
+    cell.statusImage.image = bookMark.isFinished == true ? StyleKit.imageOfBookmarkFinished : StyleKit.imageOfBookmarkPaused
+    cell.archivedDate.text = dateFormatter.stringFromDate(bookMark.archivedDate ?? NSDate())
   }
 
 }
@@ -72,10 +84,24 @@ extension ArchiveViewController: UITableViewDataSource {
     return currentSection.numberOfObjects
   }
   
+  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    return fetchedResultsController?.sections!.count ?? 0
+  }
+  
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
+    let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! ArchiveTableViewCell
     configureCell(cell, atIndexPath: indexPath)
+    
     return cell
+  }
+  
+  func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    let sectionInfo = fetchedResultsController?.sections![section]
+    return sectionInfo?.name
+  }
+  
+  func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    return cellHeight
   }
   
 }
@@ -86,7 +112,7 @@ extension ArchiveViewController: UITableViewDelegate {
   }
   
   func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-    let delete = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Delete" , handler: { (action:UITableViewRowAction!, indexPath:NSIndexPath!) -> Void in
+    let delete = UITableViewRowAction(style: UITableViewRowActionStyle.Destructive, title: "Delete" , handler: { (action:UITableViewRowAction!, indexPath:NSIndexPath!) -> Void in
       
       guard let bookMark = self.fetchedResultsController?.objectAtIndexPath(indexPath) as? BookMark, let context = self.context else { return }
       context.deleteObject(bookMark)
@@ -97,21 +123,16 @@ extension ArchiveViewController: UITableViewDelegate {
       }
       
     })
-    delete.backgroundColor = UIColor.redColor()
     
     let more = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Unarchive" , handler: { (action:UITableViewRowAction!, indexPath:NSIndexPath!) -> Void in
       guard let context = self.context, let bookMark = self.fetchedResultsController?.objectAtIndexPath(indexPath) as? BookMark else {return}
       bookMark.isArchived = false
-      
-      
-      
+      bookMark.isFinished = false
       do {
         try context.save()
       } catch {
         print("ERROR: Couldn't update archived status")
       }
-      
-      
       
     })
     more.backgroundColor = UIColor(red: 255/255, green: 207/255, blue: 51/255, alpha: 1.0)

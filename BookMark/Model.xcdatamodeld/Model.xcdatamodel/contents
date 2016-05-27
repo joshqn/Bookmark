@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15F34" minimumToolsVersion="Xcode 7.0">
     <entity name="BookMark" representedClassName=".BookMark" syncable="YES">
+        <attribute name="archivedDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="isArchived" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="isArchived" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="isFinished" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="lastBookMarkDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="page" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="photoData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="BookMark" positionX="-63" positionY="-18" width="128" height="135"/>
+        <element name="BookMark" positionX="-63" positionY="-18" width="128" height="165"/>
     </elements>
 </model>

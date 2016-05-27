@@ -125,7 +125,7 @@ extension BookMarksViewController: UITableViewDelegate {
   }
   
   func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-    let delete = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Delete" , handler: { (action:UITableViewRowAction!, indexPath:NSIndexPath!) -> Void in
+    let delete = UITableViewRowAction(style: UITableViewRowActionStyle.Destructive, title: "Delete" , handler: { (action:UITableViewRowAction!, indexPath:NSIndexPath!) -> Void in
       
       guard let bookMark = self.fetchedResultsController?.objectAtIndexPath(indexPath) as? BookMark, let context = self.context else { return }
       context.deleteObject(bookMark)
@@ -136,11 +136,26 @@ extension BookMarksViewController: UITableViewDelegate {
       }
       
     })
-    delete.backgroundColor = UIColor.redColor()
     
-    let more = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Archive" , handler: { (action:UITableViewRowAction!, indexPath:NSIndexPath!) -> Void in
-      guard let context = self.context, let bookMark = self.fetchedResultsController?.objectAtIndexPath(indexPath) as? BookMark else {return}
+    guard let context = self.context, let bookMark = self.fetchedResultsController?.objectAtIndexPath(indexPath) as? BookMark else {return [delete]}
+    
+    let finished = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Finish" , handler: { (action:UITableViewRowAction!, indexPath:NSIndexPath!) -> Void in
       bookMark.isArchived = true
+      bookMark.isFinished = true
+      bookMark.archivedDate = NSDate()
+      do {
+        try context.save()
+      } catch {
+        print("ERROR: Couldn't update archived status")
+      }
+    })
+    finished.backgroundColor = UIColor(red: 126/255, green: 211/255, blue: 33/255, alpha: 1.0)
+  
+    
+    let hold = UITableViewRowAction(style: .Default, title: "Hold") { (action, indexPath) in
+     bookMark.isArchived = true
+      bookMark.isFinished = false
+      bookMark.archivedDate = NSDate()
       
       do {
         try context.save()
@@ -148,12 +163,10 @@ extension BookMarksViewController: UITableViewDelegate {
         print("ERROR: Couldn't update archived status")
       }
       
-      
-      
-    })
-    more.backgroundColor = UIColor(red: 255/255, green: 207/255, blue: 51/255, alpha: 1.0)
+    }
+    hold.backgroundColor = UIColor(red: 74/255, green: 144/255, blue: 226/255, alpha: 1.0)
     
-    return [delete, more]
+    return [delete, finished,hold]
   }
 }
 
