@@ -124,6 +124,10 @@ class NewBookMarkViewController: UIViewController {
     
     authorLabel.text = "Author"
     authorLabel.translatesAutoresizingMaskIntoConstraints = false
+    //Resist being compressed at all cost
+    authorLabel.setContentCompressionResistancePriority(999, forAxis: .Horizontal)
+    //Resist being stretched just slightly more than the textField
+    authorLabel.setContentHuggingPriority(251, forAxis: .Horizontal)
     view.addSubview(authorLabel)
     
     bookNameTextField.placeholder = "Book Name"
@@ -140,6 +144,7 @@ class NewBookMarkViewController: UIViewController {
     authorTextField.placeholder = "Author(s) Name"
     authorTextField.translatesAutoresizingMaskIntoConstraints = false
     authorTextField.delegate = self
+    //Doesn't resist stretching as much as the label does
     authorTextField.setContentHuggingPriority(249, forAxis: .Horizontal)
     view.addSubview(authorTextField)
     
@@ -154,9 +159,6 @@ class NewBookMarkViewController: UIViewController {
     authorBottomBorder.backgroundColor = UIColor.lightGrayColor()
     authorBottomBorder.translatesAutoresizingMaskIntoConstraints = false
     authorTextField.addSubview(authorBottomBorder)
-    
-    bookNameTextField.setContentHuggingPriority(249, forAxis: .Horizontal)
-    pageTextField.setContentHuggingPriority(249, forAxis: .Horizontal)
     
     artworkImage.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(artworkImage)
@@ -201,7 +203,7 @@ class NewBookMarkViewController: UIViewController {
     }
     
     let constraints: [NSLayoutConstraint] = [
-    bookNameLabel.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor,constant: 30),
+    bookNameLabel.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor,constant: 20),
     bookNameLabel.leadingAnchor.constraintEqualToAnchor(artworkImage.trailingAnchor,constant: 10),
     
     pageLabel.topAnchor.constraintEqualToAnchor(authorLabel.bottomAnchor, constant: 15),

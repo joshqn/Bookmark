@@ -91,7 +91,7 @@ class BookMarksViewController: UIViewController, TableViewFetchedResultsDisplaye
     
     cell.nameLabel.text = bookMark.name ?? "Nil"
     cell.pageLabel.text = bookMark.pageNumberAsText
-    cell.dateLabel.text = dateFormatter.stringFromDate(bookMark.lastBookMarkDate ?? NSDate())
+    cell.authorNameLabel.text = bookMark.author
     
     if bookMark.photoData == nil {
       cell.bookArtwork.image = StyleKit.imageOfCanvas1
@@ -212,7 +212,6 @@ extension BookMarksViewController: PagePickerVCDelegate {
     }
     
     bookmarkCell.pageLabel.text = "\(page)"
-    bookmarkCell.dateLabel.text = dateFormatter.stringFromDate(bookMark.lastBookMarkDate ?? NSDate())
     
   }
 }
