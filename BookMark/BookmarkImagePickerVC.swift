@@ -105,7 +105,7 @@ class BookmarkImagePickerVC: UIViewController {
       spinner.tag = 1000
       spinner.startAnimating()
       
-      search.downloadImageWithUrl(list[index]) { success in
+      search.downloadImageWithUrl(list[index].0) { success in
         guard success != false else {
           print("Couldn't download Images")
           return
@@ -228,7 +228,7 @@ protocol BookmarkImagePickerDelegate: class {
     //func setImageAtIndex(view: BookmarkImagePickerVC, scrollView: UIScrollView, images: [BookMarkArtIV])
     func bookmarkImagePickerDidAppear(picker: BookmarkImagePickerVC)
     func bookmarkImagePickerDidDisappear(picker: BookmarkImagePickerVC)
-    func imageWasSelectedWithTag(view: BookMarkArtIVDelegate, image: BookMarkArtIV)
+    func imageWasSelectedWithTag(view: BookmarkImagePickerVC, image: BookMarkArtIV)
 }
 
 extension BookmarkImagePickerVC: BookMarkArtIVDelegate {

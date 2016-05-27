@@ -33,6 +33,7 @@ class BookMarkArtIV: UIImageView {
   
   func imageViewWasTapped() {
     delegate?.bookMarkArtIVWasSelected(self)
+    print(self.tag)
   }
 
 }

@@ -11,6 +11,7 @@ import Alamofire
 import UIKit
 
 typealias SearchComplete = (Bool) -> Void
+typealias SearchResults = (NSURL,String,String)
 
 class Search {
   
@@ -18,7 +19,7 @@ class Search {
     case NotSearchedYet
     case Loading
     case NoResults
-    case Results([NSURL])
+    case Results([SearchResults])
   }
   
   enum ImageRequestState {
@@ -56,13 +57,16 @@ class Search {
           if results.isEmpty {
             self.state = .NoResults
           } else {
-            var urls:[NSURL] = []
+            var searchResults = [SearchResults]()
             for result in results {
               guard let result = result as? [String:AnyObject] else { return }
               guard let url:NSURL = NSURL(string: result["artworkUrl100"] as! String) else { return }
-              urls.append(url)
+              guard let artistName = result["artistName"] as? String else {return}
+              guard let bookName = result["trackName"] as? String else {return}
+              
+              searchResults.append((url,artistName,bookName))
             }
-            self.state = .Results(urls)
+            self.state = .Results(searchResults)
           }
           success = true
         } else {
@@ -98,10 +102,6 @@ class Search {
     }
     
   }
-  
-  
-  
-  
 }
 
 

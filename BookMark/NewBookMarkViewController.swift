@@ -23,15 +23,34 @@ class NewBookMarkViewController: UIViewController {
   
   private let bookNameTextField = UITextField()
   private let pageTextField = UITextField()
+  private let authorTextField = UITextField()
   
   private let bookNameLabel = UILabel()
   private let pageLabel = UILabel()
+  private let authorLabel = UILabel()
   
   private let bookBottomBorder = UIView()
   private let pageBottomBorder = UIView()
+  private let authorBottomBorder = UIView()
 
   private let addPhotoButton = UIButton(type: UIButtonType.System)
-  private var artworkImage = BookMarkArtIV()
+  private let editPhotoButton = UIButton(type: .System)
+  private var artworkImage = UIImageView()
+  
+  private var artworkIsSelected:Bool {
+    get {
+      return self.artworkIsSelected
+    }
+    set {
+      if newValue {
+        addPhotoButton.hidden = true
+        editPhotoButton.hidden = false
+      } else {
+        addPhotoButton.hidden = false
+        editPhotoButton.hidden = true
+      }
+    }
+  }
   
   var bookMarkImagePickerVC: BookmarkImagePickerVC?
   
@@ -62,21 +81,23 @@ class NewBookMarkViewController: UIViewController {
       
       if bookmark == nil {
         title = "New Book Mark"
+        artworkIsSelected = false
         artworkImage.image = StyleKit.imageOfBlankImageArtwork
         bookNameTextField.becomeFirstResponder()
         updateDoneButton(forCharCount: 0)
       } else {
         title = "Edit Book"
         guard let bookmark = bookmark else { return }
+        artworkIsSelected = true
         bookNameTextField.text = bookmark.name
         pageTextField.text = bookmark.pageNumberAsText
         artworkImage.image = bookmark.bookImage
         updateDoneButton(forCharCount: 1)
         pageTextField.becomeFirstResponder()
+        dressUpImageLayer(artworkImage.layer)
         
       }
       
-      //dressUpImageLayer(artworkImage.layer)
       
       createUI()
       createAndAddConstraints()
@@ -100,6 +121,10 @@ class NewBookMarkViewController: UIViewController {
     pageLabel.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(pageLabel)
     
+    authorLabel.text = "Author"
+    authorLabel.translatesAutoresizingMaskIntoConstraints = false
+    view.addSubview(authorLabel)
+    
     bookNameTextField.placeholder = "Book Name"
     bookNameTextField.translatesAutoresizingMaskIntoConstraints = false
     bookNameTextField.delegate = self
@@ -111,6 +136,12 @@ class NewBookMarkViewController: UIViewController {
     pageTextField.delegate = self
     view.addSubview(pageTextField)
     
+    authorTextField.placeholder = "Author(s) Name"
+    authorTextField.translatesAutoresizingMaskIntoConstraints = false
+    authorTextField.delegate = self
+    authorTextField.setContentHuggingPriority(249, forAxis: .Horizontal)
+    view.addSubview(authorTextField)
+    
     bookBottomBorder.backgroundColor = UIColor.lightGrayColor()
     bookBottomBorder.translatesAutoresizingMaskIntoConstraints = false
     bookNameTextField.addSubview(bookBottomBorder)
@@ -119,16 +150,27 @@ class NewBookMarkViewController: UIViewController {
     pageBottomBorder.translatesAutoresizingMaskIntoConstraints = false
     pageTextField.addSubview(pageBottomBorder)
     
+    authorBottomBorder.backgroundColor = UIColor.lightGrayColor()
+    authorBottomBorder.translatesAutoresizingMaskIntoConstraints = false
+    authorTextField.addSubview(authorBottomBorder)
+    
     bookNameTextField.setContentHuggingPriority(249, forAxis: .Horizontal)
     pageTextField.setContentHuggingPriority(249, forAxis: .Horizontal)
     
-    addPhotoButton.setTitle("Edit", forState: .Normal)
+    artworkImage.translatesAutoresizingMaskIntoConstraints = false
+    view.addSubview(artworkImage)
+    
+    editPhotoButton.setTitle("Edit", forState: .Normal)
+    editPhotoButton.translatesAutoresizingMaskIntoConstraints = false
+    editPhotoButton.addTarget(self, action: #selector(EditButtonTapped(_:)), forControlEvents: .TouchUpInside)
+    view.addSubview(editPhotoButton)
+    
+    addPhotoButton.setTitle("Add Photo", forState: .Normal)
+    addPhotoButton.titleLabel?.numberOfLines = 0
+    addPhotoButton.titleLabel?.textAlignment = .Center
     addPhotoButton.translatesAutoresizingMaskIntoConstraints = false
     addPhotoButton.addTarget(self, action: #selector(EditButtonTapped(_:)), forControlEvents: .TouchUpInside)
     view.addSubview(addPhotoButton)
-    
-    artworkImage.translatesAutoresizingMaskIntoConstraints = false
-    view.addSubview(artworkImage)
     
     bookMarkImagePickerVC = BookmarkImagePickerVC(superController: self)
     bookMarkImagePickerVC?.turnOnNotifications()
@@ -161,11 +203,14 @@ class NewBookMarkViewController: UIViewController {
     bookNameLabel.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor,constant: 30),
     bookNameLabel.leadingAnchor.constraintEqualToAnchor(artworkImage.trailingAnchor,constant: 10),
     
-    pageLabel.topAnchor.constraintEqualToAnchor(bookNameLabel.bottomAnchor, constant: 15),
+    pageLabel.topAnchor.constraintEqualToAnchor(authorLabel.bottomAnchor, constant: 15),
     pageLabel.leadingAnchor.constraintEqualToAnchor(bookNameLabel.leadingAnchor),
     
+    authorLabel.topAnchor.constraintEqualToAnchor(bookNameLabel.bottomAnchor, constant: 15),
+    authorLabel.leadingAnchor.constraintEqualToAnchor(bookNameLabel.leadingAnchor),
+    
     bookNameTextField.centerYAnchor.constraintEqualToAnchor(bookNameLabel.centerYAnchor),
-    bookNameTextField.leadingAnchor.constraintEqualToAnchor(bookNameLabel.trailingAnchor, constant: 15),
+    bookNameTextField.leadingAnchor.constraintEqualToAnchor(authorTextField.leadingAnchor),
     bookNameTextField.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor, constant: -20),
     bookBottomBorder.widthAnchor.constraintEqualToAnchor(bookNameTextField.widthAnchor),
     bookBottomBorder.bottomAnchor.constraintEqualToAnchor(bookNameTextField.bottomAnchor),
@@ -173,15 +218,27 @@ class NewBookMarkViewController: UIViewController {
     bookBottomBorder.heightAnchor.constraintEqualToConstant(1),
     
     pageTextField.centerYAnchor.constraintEqualToAnchor(pageLabel.centerYAnchor),
-    pageTextField.leadingAnchor.constraintEqualToAnchor(pageLabel.trailingAnchor, constant: 15),
+    pageTextField.leadingAnchor.constraintEqualToAnchor(authorTextField.leadingAnchor),
     pageTextField.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor, constant: -20),
     pageBottomBorder.widthAnchor.constraintEqualToAnchor(pageTextField.widthAnchor),
     pageBottomBorder.bottomAnchor.constraintEqualToAnchor(pageTextField.bottomAnchor),
     pageBottomBorder.leadingAnchor.constraintEqualToAnchor(pageTextField.leadingAnchor),
     pageBottomBorder.heightAnchor.constraintEqualToConstant(1),
     
-    addPhotoButton.topAnchor.constraintEqualToAnchor(artworkImage.bottomAnchor,constant: 5),
-    addPhotoButton.centerXAnchor.constraintEqualToAnchor(artworkImage.centerXAnchor),
+    authorTextField.centerYAnchor.constraintEqualToAnchor(authorLabel.centerYAnchor),
+    authorTextField.leadingAnchor.constraintEqualToAnchor(authorLabel.trailingAnchor, constant: 10),
+    authorTextField.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor, constant: -20),
+    authorBottomBorder.widthAnchor.constraintEqualToAnchor(authorTextField.widthAnchor),
+    authorBottomBorder.bottomAnchor.constraintEqualToAnchor(authorTextField.bottomAnchor),
+    authorBottomBorder.leadingAnchor.constraintEqualToAnchor(authorTextField.leadingAnchor),
+    authorBottomBorder.heightAnchor.constraintEqualToConstant(1),
+    
+    addPhotoButton.topAnchor.constraintEqualToAnchor(artworkImage.topAnchor,constant: 10),
+    addPhotoButton.leadingAnchor.constraintEqualToAnchor(artworkImage.leadingAnchor),
+    addPhotoButton.trailingAnchor.constraintEqualToAnchor(artworkImage.trailingAnchor),
+    
+    editPhotoButton.topAnchor.constraintEqualToAnchor(artworkImage.bottomAnchor,constant: 5),
+    editPhotoButton.centerXAnchor.constraintEqualToAnchor(artworkImage.centerXAnchor),
     
     artworkImage.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 20),
     artworkImage.leadingAnchor.constraintEqualToAnchor(view.layoutMarginsGuide.leadingAnchor),
@@ -199,11 +256,10 @@ class NewBookMarkViewController: UIViewController {
   func updateDoneButton(forCharCount length: Int) {
     if length == 0 {
       navigationItem.rightBarButtonItem?.enabled = false
-      addPhotoButton.enabled = false
     } else {
       navigationItem.rightBarButtonItem?.enabled = true
-      addPhotoButton.enabled = true 
     }
+    
   }
   
   //MARK: Actions
@@ -221,7 +277,7 @@ class NewBookMarkViewController: UIViewController {
     save(bookmark, context: context, artworkImage: artworkImage, delegate: delegate)
   }
   
-  func save(bookmark: BookMark?, context: NSManagedObjectContext?, artworkImage: BookMarkArtIV, delegate: NewBookMarkCreationDelegate?) {
+  func save(bookmark: BookMark?, context: NSManagedObjectContext?, artworkImage: UIImageView, delegate: NewBookMarkCreationDelegate?) {
     guard let context = context, let delegate = delegate else { return }
     guard let bookmark = bookmark != nil ? bookmark : NSEntityDescription.insertNewObjectForEntityForName("BookMark", inManagedObjectContext: context) as? BookMark else { return }
     if artworkImage.image == StyleKit.imageOfCanvas1 {
@@ -248,7 +304,10 @@ class NewBookMarkViewController: UIViewController {
     
     bookMarkImagePickerVC?.turnOnNotifications()
     guard let textField = self.bookNameTextField.isFirstResponder() || self.pageTextField.isFirstResponder() == true ? self.bookNameTextField.text : self.searchBar.text else { return }
-    self.bookMarkImagePickerVC?.performSearchWithText(textField)
+    
+    if textField.characters.count > 0 {
+      self.bookMarkImagePickerVC?.performSearchWithText(textField)
+    }
     
     let optionMenu = UIAlertController(title: "Edit Photo", message: "Take a Picture or Search for One", preferredStyle: .ActionSheet)
     let searchAction = UIAlertAction(title: "Search", style: .Default) { (action) in
@@ -315,14 +374,34 @@ extension NewBookMarkViewController: BookmarkImagePickerDelegate {
     })
   }
   
-  func imageWasSelectedWithTag(view: BookMarkArtIVDelegate, image: BookMarkArtIV) {
+  func imageWasSelectedWithTag(view: BookmarkImagePickerVC, image: BookMarkArtIV) {
+    
+    switch view.search.state {
+    case .Results(let list):
+      let bookName = list[image.tag].2
+      let authorName = list[image.tag].1
+      self.bookNameTextField.text = bookName
+      self.authorTextField.text = authorName
+    default:
+      print("Default")
+    }
+    
     UIView.animateWithDuration(0.12, delay: 0.0, options: .CurveEaseOut, animations: {
      self.artworkImage.alpha = 0.0
+      
+      self.artworkIsSelected = true
       }, completion: { completed in
         UIView.animateWithDuration(0.2, animations: {
           self.artworkImage.image = image.image
           self.artworkImage.alpha = 1.0
           self.dressUpImageLayer(self.artworkImage.layer)
+          }, completion: { completed in
+            let alertController = UIAlertController(title: "Alert", message: "Message", preferredStyle: .Alert)
+            let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) in
+              //code
+            })
+            alertController.addAction(cancel)
+            self.presentViewController(alertController, animated: true, completion: nil)
         })
     })
     

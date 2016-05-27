@@ -1133,11 +1133,7 @@ public class StyleKit : NSObject {
     }
 
     public class func drawBlankImageArtwork() {
-        //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
-
         //// Color Declarations
-        let textForeground2 = UIColor(red: 0.000, green: 0.463, blue: 1.000, alpha: 1.000)
         let fillColor24 = UIColor(red: 0.948, green: 0.948, blue: 0.948, alpha: 1.000)
 
         //// Group 2
@@ -1160,36 +1156,6 @@ public class StyleKit : NSObject {
 
         fillColor24.setFill()
         bezierPath.fill()
-
-
-        //// Label Drawing
-        let labelRect = CGRect(x: 19.34, y: 13, width: 22.48, height: 19)
-        let labelTextContent = NSString(string: "Add")
-        let labelStyle = NSMutableParagraphStyle()
-        labelStyle.alignment = .Center
-
-        let labelFontAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue", size: 12)!, NSForegroundColorAttributeName: textForeground2, NSParagraphStyleAttributeName: labelStyle]
-
-        let labelTextHeight: CGFloat = labelTextContent.boundingRectWithSize(CGSize(width: labelRect.width, height: CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: labelFontAttributes, context: nil).size.height
-        CGContextSaveGState(context)
-        CGContextClipToRect(context, labelRect)
-        labelTextContent.drawInRect(CGRect(x: labelRect.minX, y: labelRect.minY + (labelRect.height - labelTextHeight) / 2, width: labelRect.width, height: labelTextHeight), withAttributes: labelFontAttributes)
-        CGContextRestoreGState(context)
-
-
-        //// Label 2 Drawing
-        let label2Rect = CGRect(x: 8.71, y: 28, width: 44.6, height: 19)
-        let label2TextContent = NSString(string: "Artwork")
-        let label2Style = NSMutableParagraphStyle()
-        label2Style.alignment = .Center
-
-        let label2FontAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue", size: 12)!, NSForegroundColorAttributeName: textForeground2, NSParagraphStyleAttributeName: label2Style]
-
-        let label2TextHeight: CGFloat = label2TextContent.boundingRectWithSize(CGSize(width: label2Rect.width, height: CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: label2FontAttributes, context: nil).size.height
-        CGContextSaveGState(context)
-        CGContextClipToRect(context, label2Rect)
-        label2TextContent.drawInRect(CGRect(x: label2Rect.minX, y: label2Rect.minY + (label2Rect.height - label2TextHeight) / 2, width: label2Rect.width, height: label2TextHeight), withAttributes: label2FontAttributes)
-        CGContextRestoreGState(context)
     }
 
     //// Generated Images
