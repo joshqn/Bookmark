@@ -90,6 +90,7 @@ class NewBookMarkViewController: UIViewController {
         guard let bookmark = bookmark else { return }
         artworkIsSelected = true
         bookNameTextField.text = bookmark.name
+        authorTextField.text = bookmark.author
         pageTextField.text = bookmark.pageNumberAsText
         artworkImage.image = bookmark.bookImage
         updateDoneButton(forCharCount: 1)
@@ -286,7 +287,8 @@ class NewBookMarkViewController: UIViewController {
       let photoData = UIImagePNGRepresentation(artworkImage.image!)
       bookmark.photoData = photoData
     }
-    bookmark.name = bookNameTextField.text!
+    bookmark.name = bookNameTextField.text ?? " "
+    bookmark.author = authorTextField.text ?? " "
     bookmark.page = Int(pageTextField.text ?? "0")
     bookmark.lastBookMarkDate = NSDate()
     
@@ -396,13 +398,8 @@ extension NewBookMarkViewController: BookmarkImagePickerDelegate {
           self.artworkImage.alpha = 1.0
           self.dressUpImageLayer(self.artworkImage.layer)
           }, completion: { completed in
-            let alertController = UIAlertController(title: "Alert", message: "Message", preferredStyle: .Alert)
-            let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) in
-              //code
-            })
-            alertController.addAction(cancel)
-            self.presentViewController(alertController, animated: true, completion: nil)
-        })
+            
+          })
     })
     
     self.view.endEditing(true)
