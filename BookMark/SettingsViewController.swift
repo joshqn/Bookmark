@@ -15,6 +15,7 @@ class SettingsViewController: UIViewController,TableViewFetchedResultsDisplayer 
   private var fetchedResultsController:NSFetchedResultsController?
   private let tableView = UITableView(frame: CGRect.zero,style: .Grouped)
   private let cellIdentifier = "cell"
+  var prefs = NSUserDefaults.standardUserDefaults()
 
 
     override func viewDidLoad() {
@@ -22,9 +23,9 @@ class SettingsViewController: UIViewController,TableViewFetchedResultsDisplayer 
 
       view.backgroundColor = UIColor.whiteColor()
       
-      navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: #selector(cancel))
-      navigationItem.leftBarButtonItem?.tintColor = UIColor.darkGrayColor()
-      navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .Done, target: self, action: #selector(done))
+      navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .Done, target: self, action: #selector(done))
+      
+      navigationController?.navigationBar.topItem?.title = "Settings"
       
       automaticallyAdjustsScrollViewInsets = false
       
@@ -33,6 +34,8 @@ class SettingsViewController: UIViewController,TableViewFetchedResultsDisplayer 
       tableView.dataSource = self
       tableView.delegate = self
       fillViewWith(tableView)
+      
+      
       
     }
 
@@ -56,17 +59,131 @@ class SettingsViewController: UIViewController,TableViewFetchedResultsDisplayer 
 }
 
 extension SettingsViewController: UITableViewDelegate {
-  
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    switch indexPath.section {
+    //Section 1
+    case 0:
+      if indexPath.row == 0 {
+        let sortVC = SortViewController()
+        sortVC.delegate = self
+        let navVC = UINavigationController(rootViewController: sortVC)
+        presentViewController(navVC, animated: true, completion: nil)
+      }
+      
+    default:
+      break
+    }
+    
+    tableView.deselectRowAtIndexPath(indexPath, animated: true)
+  }
 }
 
 extension SettingsViewController: UITableViewDataSource {
+  
+  func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    if section == 0 {
+      return "Archive"
+    }
+    
+    return nil
+  }
+  
+  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    return 2
+  }
+  
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 1
+    switch section {
+      //Archive
+    case 0:
+      return 1
+      //Help Section
+    case 1:
+      return 2
+    default:
+      break
+    }
+    return 0
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
+    let cell = UITableViewCell(style: .Value1, reuseIdentifier: cellIdentifier)
+    
     configureCell(cell, atIndexPath: indexPath)
+    
+    switch indexPath.section {
+      
+    //Section 1
+    case 0:
+      switch indexPath.row {
+      //Cell 0
+      case 0:
+        
+        cell.accessoryType = .DisclosureIndicator
+        cell.textLabel?.text = "Sort"
+
+        if prefs.boolForKey(isSortedByAuthorKey) {
+          cell.detailTextLabel?.text = "Author"
+        } else {
+          cell.detailTextLabel?.text = "Book"
+        }
+        
+      default:
+        print("Settings TBV cellForRowAtIndexPath Default")
+      }
+
+      //Section 2
+    case 1:
+      switch indexPath.row {
+        //Cell 0
+      case 0:
+        cell.textLabel?.text = "Help"
+        //Cell 1
+      case 1:
+        cell.textLabel?.text = "About PageLead"
+      default:
+        print("Settings TBV cellForRowAtIndexPath Default")
+      }
+      
+    default:
+      print("Settings TBV cellForRowAtIndexPath Default Section")
+
+    }
+    
+    
     return cell
   }
 }
+
+extension SettingsViewController: SortViewControllerDelegate {
+  func didDismissSortView(view: UIViewController) {
+    let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+    tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -9,13 +9,20 @@
 import UIKit
 import CoreData
 
+let isSortedByAuthorKey = "isSortedByAuthor"
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
 
-
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    
+    
+    if NSUserDefaults.isFirstLaunch() {
+      //The default for sorting in the archive is by Author Name
+      NSUserDefaults.standardUserDefaults().setBool(true, forKey: isSortedByAuthorKey)
+    }
     
     let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
     context.persistentStoreCoordinator = CDHelper.sharedInstance.coordinator

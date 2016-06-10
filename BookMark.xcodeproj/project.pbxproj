@@ -25,10 +25,12 @@
 		918DDB541CDC1AEA006204AC /* BookMarkArtIV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918DDB531CDC1AEA006204AC /* BookMarkArtIV.swift */; };
 		919F9BE01CDE86EC00D7B6A8 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919F9BDF1CDE86EC00D7B6A8 /* Search.swift */; };
 		B02628681CF8B09B00727CAB /* ArchiveTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02628671CF8B09B00727CAB /* ArchiveTableViewCell.swift */; };
+		B055E3D51D090EA30022939D /* NSUserDefaults+isFirstLaunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = B055E3D41D090EA30022939D /* NSUserDefaults+isFirstLaunch.swift */; };
 		B05C12381CF4C6A8009E8578 /* ContextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C12371CF4C6A8009E8578 /* ContextViewController.swift */; };
 		B05C123A1CF4C9AA009E8578 /* ArchiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C12391CF4C9AA009E8578 /* ArchiveViewController.swift */; };
 		B07280AC1CF6787A001761C1 /* BookMark+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07280AB1CF6787A001761C1 /* BookMark+CoreDataProperties.swift */; };
 		B07777891CEAA02B00C10167 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07777881CEAA02B00C10167 /* SettingsViewController.swift */; };
+		B08061201D0A432F003AF582 /* SortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B080611F1D0A432F003AF582 /* SortViewController.swift */; };
 		B0F717841CF398D5005C3955 /* PopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F717831CF398D5005C3955 /* PopUpView.swift */; };
 		B0FDE4021CEE1CB900C48EDF /* PagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FDE4011CEE1CB900C48EDF /* PagePickerViewController.swift */; };
 		B0FDE4041CEE222900C48EDF /* DimmingPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FDE4031CEE222900C48EDF /* DimmingPresentationController.swift */; };
@@ -60,10 +62,12 @@
 		919F9BDF1CDE86EC00D7B6A8 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		AD9DE4B9DBE27A8EB77AD3C1 /* Pods-BookMark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookMark.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BookMark/Pods-BookMark.debug.xcconfig"; sourceTree = "<group>"; };
 		B02628671CF8B09B00727CAB /* ArchiveTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiveTableViewCell.swift; sourceTree = "<group>"; };
+		B055E3D41D090EA30022939D /* NSUserDefaults+isFirstLaunch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+isFirstLaunch.swift"; sourceTree = "<group>"; };
 		B05C12371CF4C6A8009E8578 /* ContextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextViewController.swift; sourceTree = "<group>"; };
 		B05C12391CF4C9AA009E8578 /* ArchiveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiveViewController.swift; sourceTree = "<group>"; };
 		B07280AB1CF6787A001761C1 /* BookMark+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BookMark+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B07777881CEAA02B00C10167 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		B080611F1D0A432F003AF582 /* SortViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortViewController.swift; sourceTree = "<group>"; };
 		B0F717831CF398D5005C3955 /* PopUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopUpView.swift; sourceTree = "<group>"; };
 		B0FDE4011CEE1CB900C48EDF /* PagePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagePickerViewController.swift; sourceTree = "<group>"; };
 		B0FDE4031CEE222900C48EDF /* DimmingPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DimmingPresentationController.swift; sourceTree = "<group>"; };
@@ -148,6 +152,7 @@
 			children = (
 				B05C12371CF4C6A8009E8578 /* ContextViewController.swift */,
 				918D385E1CD93D7E00C32FB3 /* UIViewController+FillWithView.swift */,
+				B055E3D41D090EA30022939D /* NSUserDefaults+isFirstLaunch.swift */,
 				918D385A1CD93B2300C32FB3 /* CDHelper.swift */,
 			);
 			name = Helpers;
@@ -208,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				B07777881CEAA02B00C10167 /* SettingsViewController.swift */,
+				B080611F1D0A432F003AF582 /* SortViewController.swift */,
 			);
 			name = SettingsVC;
 			sourceTree = "<group>";
@@ -375,7 +381,9 @@
 				B0FDE4021CEE1CB900C48EDF /* PagePickerViewController.swift in Sources */,
 				B07280AC1CF6787A001761C1 /* BookMark+CoreDataProperties.swift in Sources */,
 				9170B34B1CDC2FD200CB2FE1 /* StyleKit.swift in Sources */,
+				B08061201D0A432F003AF582 /* SortViewController.swift in Sources */,
 				912231D81CDBC53200B46709 /* BookmarkImagePickerVC.swift in Sources */,
+				B055E3D51D090EA30022939D /* NSUserDefaults+isFirstLaunch.swift in Sources */,
 				918D38621CD93E3500C32FB3 /* Model.xcdatamodeld in Sources */,
 				B0FDE4061CEE246F00C48EDF /* GradientView.swift in Sources */,
 				918D386A1CD95AFB00C32FB3 /* TableViewFetchedResultsDelegate.swift in Sources */,

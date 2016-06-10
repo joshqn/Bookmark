@@ -25,10 +25,17 @@ class ArchiveViewController: UIViewController, ContextViewController, TableViewF
     var predicate = NSPredicate(format: "isArchived == true")
     return predicate
   }()
+  
   let authorSort = NSSortDescriptor(key: "author", ascending: true)
+  let bookSort = NSSortDescriptor(key: "name", ascending: true)
+  
+  private let prefs = NSUserDefaults.standardUserDefaults()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+      
+      navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Search", style: .Plain, target: self, action: #selector(search))
+      navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .Plain, target: self, action: #selector(edit))
       
       navigationController?.navigationBar.topItem?.title = "Archive"
       automaticallyAdjustsScrollViewInsets = false
@@ -42,29 +49,54 @@ class ArchiveViewController: UIViewController, ContextViewController, TableViewF
       dateFormatter.dateStyle = .MediumStyle
       dateFormatter.timeStyle = .NoStyle
       
-      if let context = context {
-        let request = NSFetchRequest(entityName: "BookMark")
-        request.predicate = isArchivedPredicate
-        request.sortDescriptors = [authorSort]
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: "author", cacheName: nil)
-        
-        fetchedResultsDelegate = TableViewFetchedResultsDelegate(tableView: tableView, displayer: self)
-        fetchedResultsController?.delegate = fetchedResultsDelegate
-        
-        do {
-          try fetchedResultsController?.performFetch()
-        } catch {
-          print("There was a problem fetching")
-        }
-        
-      }
-
+      //TODO Find a better way to update the tableView other than reloading the Data in here
+      updateTableViewContent(context)
+      tableView.reloadData()
+      
+      NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(defaultsChanged), name: NSUserDefaultsDidChangeNotification, object: nil )
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+  
+  func defaultsChanged() {
+    print("Notified")
+    updateTableViewContent(context)
+    tableView.reloadData()
+  }
+  
+  func updateTableViewContent(context: NSManagedObjectContext?) {
+    if let context = context {
+      let request = NSFetchRequest(entityName: "BookMark")
+      request.predicate = isArchivedPredicate
+      
+      let sort = prefs.boolForKey(isSortedByAuthorKey) == true ? authorSort : bookSort
+      let sectionNameKeyPath = prefs.boolForKey(isSortedByAuthorKey) == true ? "author" : "name"
+      
+      request.sortDescriptors = [sort]
+      fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: sectionNameKeyPath, cacheName: nil)
+      
+      fetchedResultsDelegate = TableViewFetchedResultsDelegate(tableView: tableView, displayer: self)
+      fetchedResultsController?.delegate = fetchedResultsDelegate
+      
+      do {
+        try fetchedResultsController?.performFetch()
+      } catch {
+        print("There was a problem fetching")
+      }
+      
+    }
+  }
+  
+  func search() {
+    
+  }
+  
+  func edit() {
+    
+  }
   
   func configureCell(cell: UITableViewCell, atIndexPath: NSIndexPath) {
     let cell = cell as! ArchiveTableViewCell
