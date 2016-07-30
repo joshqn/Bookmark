@@ -40,7 +40,7 @@ class PopUpView: UIView {
     self.addSubview(saveButton)
     saveButton.translatesAutoresizingMaskIntoConstraints = false
     saveButton.trailingAnchor.constraintEqualToAnchor(self.trailingAnchor, constant: -15).active = true
-    saveButton.bottomAnchor.constraintEqualToAnchor(self.topAnchor,constant: 89).active = true
+    saveButton.bottomAnchor.constraintEqualToAnchor(self.topAnchor,constant: 80).active = true
     saveButton.setContentHuggingPriority(999, forAxis: .Horizontal)
     saveButton.setContentCompressionResistancePriority(999, forAxis: .Horizontal)
     

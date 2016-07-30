@@ -13,7 +13,17 @@ class CDHelper {
     
     static let sharedInstance = CDHelper()
     
-    
+  lazy var context:NSManagedObjectContext = {
+    let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+    context.persistentStoreCoordinator = sharedInstance.coordinator
+    return context
+  }()
+  
+  lazy var isArchivedPredicate: NSPredicate = {
+    var predicate = NSPredicate(format: "isArchived == false")
+    return predicate
+  }()
+  
     lazy var storesDirectory: NSURL = {
         
         //An NSFileManager object lets you examine the contents of the file system and make changes to it. A file manager object is usually your first interaction with the file system. You use it to locate, create, copy, and move files and directories. You also use it to get information about a file or directory or change some of its attributes.
@@ -28,10 +38,15 @@ class CDHelper {
         
         // NSSearchPathDomainMask: Search path domain constants specifying base locations for the NSSearchPathDirectory type. These constants are used by the URLsForDirectory:inDomains: and URLForDirectory:inDomain:appropriateForURL:create:error: NSFileManager methods.
         // user’s home directory = .DocumentDirectory
-        
+      if let url = fm.containerURLForSecurityApplicationGroupIdentifier("group.com.KuehnLLC.BookMark") {
+        return url
+      } else {
         let urls = fm.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
         return urls[urls.count-1] as NSURL
-        }()
+      }
+      
+      
+    }()
     
     //Returns a new URL made by appending a path component to the original URL.
     lazy var localStoreURL: NSURL = {
@@ -85,4 +100,26 @@ class CDHelper {
         
         return coordinator
         }()
+  
+  func fetchResults(completion:(Bool, [AnyObject]?)->Void) {
+    print("FetchResults")
+    completion(false,nil)
+    let request = NSFetchRequest(entityName: "BookMark")
+    request.predicate = isArchivedPredicate
+    do {
+      let results = try context.executeFetchRequest(request)
+      completion(true, results)
+    } catch {
+      print("Couldn't fetch results for today extension")
+    }
+  }
+  
 }
+
+
+
+
+
+
+
+

@@ -10,15 +10,16 @@ import Foundation
 import UIKit
 
 class DimmingPresentationController: UIPresentationController {
-  lazy var dimmingView = GradientView(frame: CGRect.zero)
-  //lazy var dimmingView = UIView(frame: CGRect.zero)
+  //lazy var dimmingView = GradientView(frame: CGRect.zero)
+  lazy var dimmingView = UIView(frame: CGRect.zero)
   
   override func shouldRemovePresentersView() -> Bool {
     return false 
   }
   
   override func presentationTransitionWillBegin() {
-//    dimmingView.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
+    dimmingView.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
+    dimmingView.autoresizingMask = [.FlexibleWidth,.FlexibleHeight]
     dimmingView.frame = containerView!.bounds
     containerView!.insertSubview(dimmingView, atIndex: 0)
     

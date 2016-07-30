@@ -9,10 +9,20 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>BookWidget.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>918D38441CD93AEE00C32FB3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B01B0A991D2C9703004CB49B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
